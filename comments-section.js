@@ -1,48 +1,33 @@
 fetch("./data.json")
   .then((response) => response.json())
-  .then((json) => console.log(json));
+  .then((json) => {
+    // Create new comment & place inside comment-container
+    const commentDiv = document.createElement("div");
 
-// create comment div
+    // create parag. tag & place inside comment-container
+    const commentParagraph = document.createElement("p");
+    const newComment = document.createTextNode(json.comments[0].content);
+    commentParagraph.appendChild(newComment);
 
-{
-  /* <div class="comment">
-        <p">comment by amyrobson</p>
-        <button>+</button> <span>votes</span><button>-</button>
-        <button>Reply</button>
-      </div> */
-}
+    // create vote buttons & place inside comment-container
+    const upvoteButton = document.createElement("button");
+    const plusSign = document.createTextNode("+");
+    upvoteButton.appendChild(plusSign);
 
-// Create new comment
-const commentDiv = document.createElement("div");
-const newContent = document.createTextNode("Hello World");
-commentDiv.appendChild(newContent);
+    const downvoteButton = document.createElement("button");
+    const minusSign = document.createTextNode("-");
+    downvoteButton.appendChild(minusSign);
 
-// create parag. tag
-const commentParagraph = document.createElement("p");
-const newComment = document.createTextNode("Hello again!");
-commentParagraph.appendChild(newComment);
+    //create reply button & place inside comment-container
+    const replyButton = document.createElement("button");
+    const reply = document.createTextNode("Reply");
+    replyButton.appendChild(reply);
 
-// create vote buttons
-const upvoteButton = document.createElement("button");
-const plusSign = document.createTextNode("+");
-upvoteButton.appendChild(plusSign);
-
-const downvoteButton = document.createElement("button");
-const minusSign = document.createTextNode("-");
-downvoteButton.appendChild(minusSign);
-
-//create reply button
-const replyButton = document.createElement("button");
-const reply = document.createTextNode("Reply");
-replyButton.appendChild(reply);
-
-// put parag. tag & buttons inside comment-container
-
-// Put comment in container
-const commentContainer = document.querySelector(".comment-container");
-commentContainer.append(commentDiv);
-commentContainer.append(commentParagraph);
-commentContainer.append(upvoteButton);
-commentContainer.append(downvoteButton);
-commentContainer.append(replyButton);
-//
+    // Put comment in container
+    const commentContainer = document.querySelector(".comment-container");
+    commentContainer.append(commentDiv);
+    commentContainer.append(commentParagraph);
+    commentContainer.append(upvoteButton);
+    commentContainer.append(downvoteButton);
+    commentContainer.append(replyButton);
+  });
