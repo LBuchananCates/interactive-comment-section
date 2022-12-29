@@ -24,6 +24,10 @@ fetch("./data.json")
     const plusSign = document.createTextNode("+");
     upvoteButton.appendChild(plusSign);
 
+    // const totalVotes = document.createElement("span");
+    // const numVotes = document.createTextNode("12");
+    // totalVotes.appendChild(numVotes); THIS MIGHT BE COMPLETELY WRONG
+
     const downvoteButton = document.createElement("button");
     const minusSign = document.createTextNode("-");
     downvoteButton.appendChild(minusSign);
@@ -42,12 +46,14 @@ fetch("./data.json")
     commentContainer.append(downvoteButton);
     commentContainer.append(replyButton);
 
-    // loop over array of comments
-    const comments = [0, 1, 2];
-    for (let comment of comments) {
-      comment += 1;
-      console.log(comment);
-    }
+    // // loop over array of comments
+    // const comments = [0, 1, 2];
+    // for (let comment of comments) {
+    //   comment += 1;
+    //   console.log(comment);
+    // }
 
     // TODO: Style comment and buttons in them
+
+    // provide starting "score" for up and downvotes
   });

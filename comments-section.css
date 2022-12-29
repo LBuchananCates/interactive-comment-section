@@ -4,9 +4,18 @@
 
 body {
   font-family: "Rubik", sans-serif;
+  background-color: hsl(223, 19%, 93%);
 }
 
 .comment-container {
   display: flex;
   flex-direction: column;
+  background-color: white;
+}
+
+button {
+  color: hsl(212, 24%, 26%);
+  background-color: white;
+  border: none;
+  font-weight: 700;
 }
