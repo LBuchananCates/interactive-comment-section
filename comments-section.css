@@ -4,18 +4,26 @@
 
 body {
   font-family: "Rubik", sans-serif;
-  background-color: hsl(223, 19%, 93%);
+  background-color: hsl(228, 33%, 97%);
 }
 
 .comment-container {
+  color: hsl(211, 10%, 45%);
+  background-color: white;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 30px 5px;
+  font-weight: 400;
 }
 
 button {
-  color: hsl(212, 24%, 26%);
+  color: hsl(249deg 45% 42%);
   background-color: white;
   border: none;
   font-weight: 700;
 }
+
+/* color: hsl(212, 24%, 26%); use this for: 
+username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */

@@ -4,11 +4,6 @@ fetch("./data.json")
     // Create new comment & place inside comment-container
     const commentDiv = document.createElement("div");
 
-    // how long ago comment was posted
-    const commentPostDate = document.createElement("span");
-    const postDate = document.createTextNode(json.comments[0].createdAt);
-    commentPostDate.appendChild(postDate);
-
     // create parag. tag & place inside comment-container
     const commentParagraph1 = document.createElement("p");
     const newComment1 = document.createTextNode(json.comments[0].content);
@@ -46,12 +41,22 @@ fetch("./data.json")
     commentContainer.append(downvoteButton);
     commentContainer.append(replyButton);
 
+    const comments = json.comments;
+
     // // loop over array of comments
-    // const comments = [0, 1, 2];
-    // for (let comment of comments) {
-    //   comment += 1;
-    //   console.log(comment);
-    // }
+    for (const comment of comments) {
+      // console.log(comment.createdAt);
+      // create paragraph element
+      const createdAt = document.createElement("p");
+      // put createdAt inside paragraph
+      const postDate = document.createTextNode(comment.createdAt);
+
+      // put string into para
+      createdAt.appendChild(postDate);
+      console.log(createdAt);
+      // append to ctainer
+      commentContainer.append(createdAt);
+    }
 
     // TODO: Style comment and buttons in them
 
