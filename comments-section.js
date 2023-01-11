@@ -7,6 +7,7 @@ fetch("./data.json")
       // create comment div
       const commentDiv = document.createElement("div");
       document.body.append(commentDiv);
+
       // add avatar
       const userAvatar = document.createElement("img");
       userAvatar.src = comment.user.image.png;
@@ -30,8 +31,14 @@ fetch("./data.json")
       // add upvote and downvote
 
       // add arrow icon
+      const arrowIcon = document.createElement("img");
+      arrowIcon.src = "./images/icon-reply";
+      commentDiv.append(arrowIcon);
 
       // add reply button
+      const replyButton = document.createElement("button");
+      replyButton.textContent = "Reply";
+      commentDiv.append(replyButton);
 
       // put everything inside comment div
     }
