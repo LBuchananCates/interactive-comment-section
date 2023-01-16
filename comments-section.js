@@ -7,6 +7,7 @@ fetch("./data.json")
       // create comment div
       const commentDiv = document.createElement("div");
       document.body.append(commentDiv);
+      commentDiv.className = "comment-div";
 
       // add avatar
       const userAvatar = document.createElement("img");
@@ -17,22 +18,25 @@ fetch("./data.json")
       const userName = document.createElement("span");
       userName.textContent = comment.user.username;
       commentDiv.append(userName);
+      userName.className = "username";
 
       // add post date
       const postDate = document.createElement("p");
       postDate.textContent = comment.createdAt;
       commentDiv.append(postDate);
+      postDate.className = "post-date";
 
       // add comment
       const post = document.createElement("p");
       post.textContent = comment.content;
       commentDiv.append(post);
+      post.className = "comment"; // THIS WORKED YAY //
 
-      // add upvote and downvote
+      // add upvote and downvote (buttons???)
 
       // add arrow icon
       const arrowIcon = document.createElement("img");
-      arrowIcon.src = "./images/icon-reply";
+      arrowIcon.src = "./images/icon-reply.svg";
       commentDiv.append(arrowIcon);
 
       // add reply button

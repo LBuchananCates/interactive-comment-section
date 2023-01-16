@@ -25,5 +25,13 @@ button {
   font-weight: 700;
 }
 
+.username {
+  color: hsl(212, 24%, 26%);
+}
+
+.comment-div {
+  background-color: white;
+}
+
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
