@@ -25,13 +25,33 @@ button {
   font-weight: 700;
 }
 
+img {
+  width: 40px;
+}
+
+.arrow-icon {
+  width: 15px;
+}
+
 .username {
   color: hsl(212, 24%, 26%);
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .comment-div {
   background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 25px 7px;
 }
 
+.reply-button {
+  cursor: pointer;
+}
+
+.reply-comments {
+  background-color: white;
+}
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */

@@ -38,12 +38,20 @@ fetch("./data.json")
       const arrowIcon = document.createElement("img");
       arrowIcon.src = "./images/icon-reply.svg";
       commentDiv.append(arrowIcon);
+      arrowIcon.className = "arrow-icon";
 
       // add reply button
       const replyButton = document.createElement("button");
       replyButton.textContent = "Reply";
       commentDiv.append(replyButton);
+      replyButton.className = "reply-button";
 
       // put everything inside comment div
+      // for (const reply of replies) {
+      //   // add reply comments
+      //   const replyDiv = document.createElement("div");
+      //   document.body.append(replyDiv);
+      //   replyDiv.className = "reply-div";
+      // }
     }
   });
