@@ -33,7 +33,12 @@ fetch("./data.json")
       post.className = "comment"; // THIS WORKED YAY //
 
       // add upvote and downvote (buttons???)
+
       // add event listener for every time click up/downvotes, add 1
+      function commentReply() {
+        const editComment = document.getElementsByClassName("reply-button");
+        editComment.addEventListener("click");
+      }
 
       // add arrow icon
       const arrowIcon = document.createElement("img");
@@ -48,7 +53,6 @@ fetch("./data.json")
       replyButton.className = "reply-button";
     }
 
-    // replies is iterable under username maxblagun
     const replies = json.comments[1].replies; // console logged; is undefined but working
 
     for (const reply of replies) {
@@ -69,7 +73,7 @@ fetch("./data.json")
       userName.className = "username";
 
       // add post date
-      const postDate = document.createElement("p");
+      const postDate = document.createElement("span");
       postDate.textContent = reply.createdAt;
       replyDiv.append(postDate);
       postDate.className = "post-date";
@@ -79,5 +83,20 @@ fetch("./data.json")
       post.textContent = reply.content;
       replyDiv.append(post);
       post.className = "comment"; // THIS WORKED YAY //
+
+      // add arrow icon
+      const arrowIcon = document.createElement("img");
+      arrowIcon.src = "./images/icon-reply.svg";
+      replyDiv.append(arrowIcon);
+      arrowIcon.className = "arrow-icon";
+
+      // add reply button
+      const replyButton = document.createElement("button");
+      replyButton.textContent = "Reply";
+      replyDiv.append(replyButton);
+      replyButton.className = "reply-button";
+
+      // create blank input element with click event listener
+      const input = document.createElement("input");
     }
   });
