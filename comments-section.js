@@ -21,7 +21,7 @@ fetch("./data.json")
       userName.className = "username";
 
       // add post date
-      const postDate = document.createElement("p");
+      const postDate = document.createElement("span");
       postDate.textContent = comment.createdAt;
       commentDiv.append(postDate);
       postDate.className = "post-date";
@@ -33,6 +33,7 @@ fetch("./data.json")
       post.className = "comment"; // THIS WORKED YAY //
 
       // add upvote and downvote (buttons???)
+      // add event listener for every time click up/downvotes, add 1
 
       // add arrow icon
       const arrowIcon = document.createElement("img");
@@ -45,13 +46,38 @@ fetch("./data.json")
       replyButton.textContent = "Reply";
       commentDiv.append(replyButton);
       replyButton.className = "reply-button";
+    }
 
-      // put everything inside comment div
-      // for (const reply of replies) {
-      //   // add reply comments
-      //   const replyDiv = document.createElement("div");
-      //   document.body.append(replyDiv);
-      //   replyDiv.className = "reply-div";
-      // }
+    // replies is iterable under username maxblagun
+    const replies = json.comments[1].replies; // console logged; is undefined but working
+
+    for (const reply of replies) {
+      // add reply comments
+      const replyDiv = document.createElement("div");
+      document.body.append(replyDiv); // addressing commentDiv //
+      replyDiv.className = "reply-div";
+
+      // add avatar
+      const userAvatar = document.createElement("img");
+      userAvatar.src = reply.user.image.png;
+      replyDiv.append(userAvatar);
+
+      // add username
+      const userName = document.createElement("span");
+      userName.textContent = reply.user.username;
+      replyDiv.append(userName);
+      userName.className = "username";
+
+      // add post date
+      const postDate = document.createElement("p");
+      postDate.textContent = reply.createdAt;
+      replyDiv.append(postDate);
+      postDate.className = "post-date";
+
+      // add comment
+      const post = document.createElement("p");
+      post.textContent = reply.content;
+      replyDiv.append(post);
+      post.className = "comment"; // THIS WORKED YAY //
     }
   });

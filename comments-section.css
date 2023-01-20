@@ -33,17 +33,24 @@ img {
   width: 15px;
 }
 
-.username {
-  color: hsl(212, 24%, 26%);
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .comment-div {
   background-color: white;
   padding: 15px;
   border-radius: 10px;
   margin: 25px 7px;
+}
+
+.username {
+  color: hsl(212, 24%, 26%);
+  cursor: pointer;
+  font-weight: bold;
+  display: inline;
+  align-content: center;
+  margin: 0px 5px;
+}
+
+.post-date {
+  margin: 0px 5px;
 }
 
 .reply-button {
