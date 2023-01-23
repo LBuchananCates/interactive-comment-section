@@ -24,7 +24,7 @@ button {
 }
 
 img {
-  width: 40px;
+  width: 35px;
 }
 
 .arrow-icon {
@@ -42,6 +42,19 @@ img {
 
 .post-date {
   margin: 0px 5px;
+}
+
+.votes {
+  display: block;
+  justify-content: space-between;
+}
+
+.minus {
+  cursor: pointer;
+}
+
+.plus {
+  cursor: pointer;
 }
 
 .reply-button {
