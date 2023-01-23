@@ -97,6 +97,7 @@ fetch("./data.json")
       replyButton.className = "reply-button";
 
       // create blank input element with click event listener
-      const input = document.createElement("input");
+      //   const input = document.createElement("input");
+      //   replyButton.addEventListener("click", modifyText);
     }
   });
