@@ -30,30 +30,66 @@ fetch("./data.json")
       const post = document.createElement("p");
       post.textContent = comment.content;
       commentDiv.append(post);
-      post.className = "comment"; // THIS WORKED YAY //
-
-      // add upvote and downvote (buttons???)
+      post.className = "comment";
 
       // add event listener for every time click up/downvotes, add 1
-      function commentReply() {
-        const editComment = document.getElementsByClassName("reply-button");
-        editComment.addEventListener("click");
-      }
+      // function commentReply() {
+      //   const editComment = document.getElementsByClassName("reply-button");
+      //   editComment.addEventListener("click");
+      // }
 
-      // add arrow icon
+      // insert score button
+      const votesDiv = document.createElement("div");
+      commentDiv.append(votesDiv);
+      votesDiv.className = "votes";
+
+      // insert minus votes button
+      const minusVotes = document.createElement("button");
+      minusVotes.textContent = "-";
+      votesDiv.append(minusVotes);
+      minusVotes.className = "minus";
+
+      // current votes default
+      let currentVotes = document.createElement("span");
+      currentVotes.textContent = "12";
+      votesDiv.append(currentVotes);
+      currentVotes.className = "current-votes";
+
+      // insert plus votes button
+      const plusVotes = document.createElement("button");
+      plusVotes.textContent = "+";
+      votesDiv.append(plusVotes);
+      plusVotes.className = "plus";
+
+      //add event listener
+      const plusButton = document.querySelector(".plus");
+      const minusButton = document.querySelector(".minus");
+      let currentScore = 0;
+      plusButton.addEventListener("click", function () {
+        currentScore += 1;
+        currentVotes.textContent = currentScore;
+      });
+
+      // container below in reply div
+      const replyContainer = document.createElement("div");
+      commentDiv.append(replyContainer);
+      replyContainer.className = "reply-container";
+
+      // arrow icon
       const arrowIcon = document.createElement("img");
       arrowIcon.src = "./images/icon-reply.svg";
-      commentDiv.append(arrowIcon);
+      replyContainer.append(arrowIcon);
       arrowIcon.className = "arrow-icon";
 
-      // add reply button
+      // reply button
       const replyButton = document.createElement("button");
       replyButton.textContent = "Reply";
-      commentDiv.append(replyButton);
+      replyContainer.append(replyButton);
       replyButton.className = "reply-button";
+      // add event listener to append reply to reply container
     }
 
-    const replies = json.comments[1].replies; // console logged; is undefined but working
+    const replies = json.comments[1].replies;
 
     for (const reply of replies) {
       // add reply comments
@@ -84,20 +120,44 @@ fetch("./data.json")
       replyDiv.append(post);
       post.className = "comment"; // THIS WORKED YAY //
 
+      // insert score button
+      const votesDiv = document.createElement("div");
+      replyDiv.append(votesDiv);
+      votesDiv.className = "votes";
+
+      // insert minus votes button
+      const minusVotes = document.createElement("button");
+      minusVotes.textContent = "-";
+      votesDiv.append(minusVotes);
+      minusVotes.className = "minus";
+
+      // current votes default
+      let currentVotes = document.createElement("span");
+      currentVotes.textContent = "12";
+      votesDiv.append(currentVotes);
+      currentVotes.className = "current-votes";
+
+      // insert plus votes button
+      const plusVotes = document.createElement("button");
+      plusVotes.textContent = "+";
+      votesDiv.append(plusVotes);
+      plusVotes.className = "plus";
+
+      // container below in reply div
+      const replyContainer = document.createElement("div");
+      replyDiv.append(replyContainer);
+      replyContainer.className = "reply-container";
+
       // add arrow icon
       const arrowIcon = document.createElement("img");
       arrowIcon.src = "./images/icon-reply.svg";
-      replyDiv.append(arrowIcon);
+      replyContainer.append(arrowIcon);
       arrowIcon.className = "arrow-icon";
 
       // add reply button
       const replyButton = document.createElement("button");
       replyButton.textContent = "Reply";
-      replyDiv.append(replyButton);
+      replyContainer.append(replyButton);
       replyButton.className = "reply-button";
-
-      // create blank input element with click event listener
-      //   const input = document.createElement("input");
-      //   replyButton.addEventListener("click", modifyText);
     }
   });

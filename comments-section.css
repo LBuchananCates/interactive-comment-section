@@ -51,10 +51,20 @@ img {
 
 .minus {
   cursor: pointer;
+  color: hsl(249deg 45% 42%);
+}
+
+.current-votes {
+  color: hsl(249deg 45% 42%);
+  font-weight: 400;
 }
 
 .plus {
   cursor: pointer;
+}
+
+.reply-container {
+  display: block;
 }
 
 .reply-button {
