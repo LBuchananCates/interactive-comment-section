@@ -51,7 +51,7 @@ fetch("./data.json")
 
       // current votes default
       let currentVotes = document.createElement("span");
-      currentVotes.textContent = "12";
+      currentVotes.textContent = "0";
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
@@ -64,9 +64,14 @@ fetch("./data.json")
       //add event listener
       const plusButton = document.querySelector(".plus");
       const minusButton = document.querySelector(".minus");
+
       let currentScore = 0;
       plusButton.addEventListener("click", function () {
         currentScore += 1;
+        currentVotes.textContent = currentScore;
+      });
+      minusButton.addEventListener("click", function () {
+        currentScore -= 1; // ensure it doesn't go negative
         currentVotes.textContent = currentScore;
       });
 
@@ -86,7 +91,12 @@ fetch("./data.json")
       replyButton.textContent = "Reply";
       replyContainer.append(replyButton);
       replyButton.className = "reply-button";
-      // add event listener to append reply to reply container
+
+      // add event listener to append reply to reply container STILL WORKING ON THIS
+      replyButton.addEventListener("click", function () {
+        const inputText = document.createElement("input");
+        replyContainer.append(inputText);
+      });
     }
 
     const replies = json.comments[1].replies;
@@ -94,50 +104,50 @@ fetch("./data.json")
     for (const reply of replies) {
       // add reply comments
       const replyDiv = document.createElement("div");
-      document.body.append(replyDiv); // addressing commentDiv //
+      document.body.append(replyDiv);
       replyDiv.className = "reply-div";
 
-      // add avatar
+      // add avatar to reply div
       const userAvatar = document.createElement("img");
       userAvatar.src = reply.user.image.png;
       replyDiv.append(userAvatar);
 
-      // add username
+      // add username to reply div
       const userName = document.createElement("span");
       userName.textContent = reply.user.username;
       replyDiv.append(userName);
       userName.className = "username";
 
-      // add post date
+      // add post date to reply div
       const postDate = document.createElement("span");
       postDate.textContent = reply.createdAt;
       replyDiv.append(postDate);
       postDate.className = "post-date";
 
-      // add comment
+      // add comment to reply div
       const post = document.createElement("p");
       post.textContent = reply.content;
       replyDiv.append(post);
       post.className = "comment"; // THIS WORKED YAY //
 
-      // insert score button
+      // insert score button to reply div
       const votesDiv = document.createElement("div");
       replyDiv.append(votesDiv);
       votesDiv.className = "votes";
 
-      // insert minus votes button
+      // insert minus votes button to votes div
       const minusVotes = document.createElement("button");
       minusVotes.textContent = "-";
       votesDiv.append(minusVotes);
       minusVotes.className = "minus";
 
-      // current votes default
+      // current votes default to votes div
       let currentVotes = document.createElement("span");
       currentVotes.textContent = "12";
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
-      // insert plus votes button
+      // insert plus votes button to votes div
       const plusVotes = document.createElement("button");
       plusVotes.textContent = "+";
       votesDiv.append(plusVotes);
@@ -148,13 +158,13 @@ fetch("./data.json")
       replyDiv.append(replyContainer);
       replyContainer.className = "reply-container";
 
-      // add arrow icon
+      // add arrow icon to reply container div
       const arrowIcon = document.createElement("img");
       arrowIcon.src = "./images/icon-reply.svg";
       replyContainer.append(arrowIcon);
       arrowIcon.className = "arrow-icon";
 
-      // add reply button
+      // add reply button to reply container div
       const replyButton = document.createElement("button");
       replyButton.textContent = "Reply";
       replyContainer.append(replyButton);
