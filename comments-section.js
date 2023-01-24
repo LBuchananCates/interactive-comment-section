@@ -44,14 +44,15 @@ fetch("./data.json")
       plusVotes.className = "plus";
 
       // current votes default
-      let currentVotes = document.createElement("span"); // LET OR CONST???? //
+      const currentVotes = document.createElement("span"); // LET OR CONST???? //
       currentVotes.textContent = comment.score;
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
-      //add event listener
+      //add event listener FIX THISSSSSS
       const plusButton = document.querySelector(".plus");
       plusButton.addEventListener("click", function () {
+        let currentScore = comment.score; // got this working - don't change
         currentScore += 1;
         currentVotes.textContent = currentScore;
       });
@@ -64,8 +65,9 @@ fetch("./data.json")
 
       const minusButton = document.querySelector(".minus");
       minusButton.addEventListener("click", function () {
-        currentScore -= 1; // ensure it doesn't go negative
+        let currentScore = comment.score;
         currentVotes.textContent = currentScore;
+        currentScore -= 1; // ensure it doesn't go negative also, keeps affecting other comment votes
       });
 
       // container below in reply div
@@ -88,15 +90,18 @@ fetch("./data.json")
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
         //only ONCE
+        const directReplyContainer = document.createElement("div");
+        commentDiv.append(directReplyContainer);
+        directReplyContainer.className = "direct-reply-container";
         const currentUserAvatar = document.createElement("img");
         currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
-        replyContainer.append(currentUserAvatar);
+        directReplyContainer.append(currentUserAvatar);
         currentUserAvatar.className = "current-user-avatar";
         const inputText = document.createElement("input");
-        replyContainer.append(inputText);
+        directReplyContainer.append(inputText);
         const submitButton = document.createElement("button");
         submitButton.textContent = "Reply";
-        replyContainer.append(submitButton);
+        directReplyContainer.append(submitButton);
         submitButton.className = "submit-button";
         // currentUser avatar + input + reply button that appends innerHTML to comment
       });
@@ -148,7 +153,7 @@ fetch("./data.json")
 
       // current votes default to votes div
       const currentVotes = document.createElement("span");
-      currentVotes.textContent = comments[1].replies[1].score; //check on this!!!
+      currentVotes.textContent = comments[1].replies[0].score; //check on this!!!
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
@@ -177,17 +182,23 @@ fetch("./data.json")
 
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
-        //only ONCE
+        //if no direct-reply-container, don't repeat (???)
+        const directReplyContainer = document.createElement("div");
+        replyDiv.append(directReplyContainer);
+        directReplyContainer.className = "direct-reply-container";
         const currentUserAvatar = document.createElement("img");
         currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
-        replyContainer.append(currentUserAvatar);
+        directReplyContainer.append(currentUserAvatar);
         currentUserAvatar.className = "current-user-avatar";
         const inputText = document.createElement("input");
-        replyContainer.append(inputText);
+        directReplyContainer.append(inputText);
         const submitButton = document.createElement("button");
         submitButton.textContent = "Reply";
-        replyContainer.append(submitButton);
+        directReplyContainer.append(submitButton);
         submitButton.className = "submit-button";
+        submitButton.addEventListener("click", function () {
+          //append new comment, creating new div and comment
+        });
       });
     }
   });
