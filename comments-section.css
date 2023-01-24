@@ -47,12 +47,16 @@ img {
 .votes {
   display: inline;
   justify-content: space-between;
+  background-color: hsl(228, 33%, 97%);
+  border-radius: 10px;
+  padding: 5px 15px;
 }
 
 .minus,
 .plus {
   cursor: pointer;
-  color: hsl(249deg 45% 42%);
+  color: hsl(211, 10%, 45%);
+  background-color: hsl(228, 33%, 97%);
 }
 
 .current-votes {
@@ -61,7 +65,7 @@ img {
 }
 
 .reply-container {
-  display: block;
+  display: flex;
 }
 
 .reply-button {
@@ -77,7 +81,7 @@ img {
   color: hsl(211, 10%, 45%);
   padding: 15px;
   border-radius: 6px;
-  margin: 0px 7px 0px 20px;
+  margin: 0px 7px 15px 20px;
 }
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
