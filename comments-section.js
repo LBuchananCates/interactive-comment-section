@@ -32,12 +32,6 @@ fetch("./data.json")
       commentDiv.append(post);
       post.className = "comment";
 
-      // add event listener for every time click up/downvotes, add 1
-      // function commentReply() {
-      //   const editComment = document.getElementsByClassName("reply-button");
-      //   editComment.addEventListener("click");
-      // }
-
       // insert score button
       const votesDiv = document.createElement("div");
       commentDiv.append(votesDiv);
@@ -50,12 +44,12 @@ fetch("./data.json")
       minusVotes.className = "minus";
 
       // current votes default
-      let currentVotes = document.createElement("span");
-      currentVotes.textContent = "0";
+      const currentVotes = document.createElement("span");
+      currentVotes.textContent = comment.score;
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
-      // insert plus votes button
+      // insert plus votes button WORKS
       const plusVotes = document.createElement("button");
       plusVotes.textContent = "+";
       votesDiv.append(plusVotes);
@@ -63,13 +57,12 @@ fetch("./data.json")
 
       //add event listener
       const plusButton = document.querySelector(".plus");
-      const minusButton = document.querySelector(".minus");
-
-      let currentScore = 0;
       plusButton.addEventListener("click", function () {
         currentScore += 1;
         currentVotes.textContent = currentScore;
       });
+
+      const minusButton = document.querySelector(".minus");
       minusButton.addEventListener("click", function () {
         currentScore -= 1; // ensure it doesn't go negative
         currentVotes.textContent = currentScore;
@@ -94,6 +87,7 @@ fetch("./data.json")
 
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
+        //only ONCE
         const inputText = document.createElement("input");
         replyContainer.append(inputText);
       });
@@ -142,8 +136,8 @@ fetch("./data.json")
       minusVotes.className = "minus";
 
       // current votes default to votes div
-      let currentVotes = document.createElement("span");
-      currentVotes.textContent = "12";
+      const currentVotes = document.createElement("span");
+      currentVotes.textContent = comments[1].replies[1].score; //check on this!!!
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
