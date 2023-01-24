@@ -37,23 +37,17 @@ fetch("./data.json")
       commentDiv.append(votesDiv);
       votesDiv.className = "votes";
 
-      // insert minus votes button
-      const minusVotes = document.createElement("button");
-      minusVotes.textContent = "-";
-      votesDiv.append(minusVotes);
-      minusVotes.className = "minus";
-
-      // current votes default
-      const currentVotes = document.createElement("span");
-      currentVotes.textContent = comment.score;
-      votesDiv.append(currentVotes);
-      currentVotes.className = "current-votes";
-
       // insert plus votes button WORKS
       const plusVotes = document.createElement("button");
       plusVotes.textContent = "+";
       votesDiv.append(plusVotes);
       plusVotes.className = "plus";
+
+      // current votes default
+      let currentVotes = document.createElement("span"); // LET OR CONST???? //
+      currentVotes.textContent = comment.score;
+      votesDiv.append(currentVotes);
+      currentVotes.className = "current-votes";
 
       //add event listener
       const plusButton = document.querySelector(".plus");
@@ -61,6 +55,12 @@ fetch("./data.json")
         currentScore += 1;
         currentVotes.textContent = currentScore;
       });
+
+      // insert minus votes button
+      const minusVotes = document.createElement("button");
+      minusVotes.textContent = "-";
+      votesDiv.append(minusVotes);
+      minusVotes.className = "minus";
 
       const minusButton = document.querySelector(".minus");
       minusButton.addEventListener("click", function () {
@@ -88,8 +88,17 @@ fetch("./data.json")
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
         //only ONCE
+        const currentUserAvatar = document.createElement("img");
+        currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
+        replyContainer.append(currentUserAvatar);
+        currentUserAvatar.className = "current-user-avatar";
         const inputText = document.createElement("input");
         replyContainer.append(inputText);
+        const submitButton = document.createElement("button");
+        submitButton.textContent = "Reply";
+        replyContainer.append(submitButton);
+        submitButton.className = "submit-button";
+        // currentUser avatar + input + reply button that appends innerHTML to comment
       });
     }
 
@@ -118,22 +127,24 @@ fetch("./data.json")
       replyDiv.append(postDate);
       postDate.className = "post-date";
 
+      // replying to
+
       // add comment to reply div
       const post = document.createElement("p");
       post.textContent = reply.content;
       replyDiv.append(post);
       post.className = "comment"; // THIS WORKED YAY //
 
-      // insert score button to reply div
+      // insert current score div to reply div
       const votesDiv = document.createElement("div");
       replyDiv.append(votesDiv);
       votesDiv.className = "votes";
 
-      // insert minus votes button to votes div
-      const minusVotes = document.createElement("button");
-      minusVotes.textContent = "-";
-      votesDiv.append(minusVotes);
-      minusVotes.className = "minus";
+      // insert plus votes button to votes div
+      const plusVotes = document.createElement("button");
+      plusVotes.textContent = "+";
+      votesDiv.append(plusVotes);
+      plusVotes.className = "plus";
 
       // current votes default to votes div
       const currentVotes = document.createElement("span");
@@ -141,11 +152,11 @@ fetch("./data.json")
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
-      // insert plus votes button to votes div
-      const plusVotes = document.createElement("button");
-      plusVotes.textContent = "+";
-      votesDiv.append(plusVotes);
-      plusVotes.className = "plus";
+      // insert minus votes button to votes div
+      const minusVotes = document.createElement("button");
+      minusVotes.textContent = "-";
+      votesDiv.append(minusVotes);
+      minusVotes.className = "minus";
 
       // container below in reply div
       const replyContainer = document.createElement("div");
@@ -163,5 +174,20 @@ fetch("./data.json")
       replyButton.textContent = "Reply";
       replyContainer.append(replyButton);
       replyButton.className = "reply-button";
+
+      // add event listener to append reply to reply container STILL WORKING ON THIS
+      replyButton.addEventListener("click", function () {
+        //only ONCE
+        const currentUserAvatar = document.createElement("img");
+        currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
+        replyContainer.append(currentUserAvatar);
+        currentUserAvatar.className = "current-user-avatar";
+        const inputText = document.createElement("input");
+        replyContainer.append(inputText);
+        const submitButton = document.createElement("button");
+        submitButton.textContent = "Reply";
+        replyContainer.append(submitButton);
+        submitButton.className = "submit-button";
+      });
     }
   });
