@@ -100,7 +100,7 @@ fetch("./data.json")
         const inputText = document.createElement("input");
         directReplyContainer.append(inputText);
         const submitButton = document.createElement("button");
-        submitButton.textContent = "Reply";
+        submitButton.textContent = "REPLY";
         directReplyContainer.append(submitButton);
         submitButton.className = "submit-button";
         // currentUser avatar + input + reply button that appends innerHTML to comment
@@ -183,19 +183,25 @@ fetch("./data.json")
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
         //if no direct-reply-container, don't repeat (???)
+        // replyButton.display = none; NOT WORKING
+
         const directReplyContainer = document.createElement("div");
         replyDiv.append(directReplyContainer);
         directReplyContainer.className = "direct-reply-container";
+
         const currentUserAvatar = document.createElement("img");
         currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
         directReplyContainer.append(currentUserAvatar);
         currentUserAvatar.className = "current-user-avatar";
+
         const inputText = document.createElement("input");
         directReplyContainer.append(inputText);
+
         const submitButton = document.createElement("button");
-        submitButton.textContent = "Reply";
+        submitButton.textContent = "REPLY";
         directReplyContainer.append(submitButton);
         submitButton.className = "submit-button";
+
         submitButton.addEventListener("click", function () {
           //append new comment, creating new div and comment
         });

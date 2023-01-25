@@ -65,11 +65,36 @@ img {
 }
 
 .reply-container {
+  display: inline-flex; /* inline flex??? */
+}
+
+.direct-reply-container {
   display: flex;
+  padding: 14px 0px;
 }
 
 .reply-button {
   cursor: pointer;
+}
+
+/* .reply-button:hover {
+  background-color: ;
+} */
+
+input {
+  border-radius: 8px;
+  border-color: hsl(249deg 45% 42%);
+  margin: 0px 10px;
+  border-width: 1px;
+}
+
+.submit-button {
+  cursor: pointer;
+  color: white;
+  border-radius: 7px;
+  padding: 5px 15px;
+  background-color: hsl(249deg 45% 42%);
+  letter-spacing: 0.1em;
 }
 
 .reply-comments {
