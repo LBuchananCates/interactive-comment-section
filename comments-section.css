@@ -108,5 +108,10 @@ input {
   border-radius: 6px;
   margin: 0px 7px 15px 20px;
 }
+
+.new-comment-container {
+  background-color: white;
+  border-radius: 6px;
+}
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
