@@ -44,12 +44,12 @@ fetch("./data.json")
       plusVotes.className = "plus";
 
       // current votes default
-      const currentVotes = document.createElement("span"); // LET OR CONST???? //
+      const currentVotes = document.createElement("span");
       currentVotes.textContent = comment.score;
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
 
-      //add event listener FIX THISSSSSS
+      //add event listener FIX THISSSSSS LET OR CONST???? //
       const plusButton = document.querySelector(".plus");
       plusButton.addEventListener("click", function () {
         let currentScore = comment.score; // got this working - don't change
@@ -89,7 +89,7 @@ fetch("./data.json")
 
       // add event listener to append reply to reply container STILL WORKING ON THIS
       replyButton.addEventListener("click", function () {
-        //only ONCE
+        // IF ".direct-reply-container" DOESN'T exist, do this:
         const directReplyContainer = document.createElement("div");
         commentDiv.append(directReplyContainer);
         directReplyContainer.className = "direct-reply-container";
@@ -180,11 +180,8 @@ fetch("./data.json")
       replyContainer.append(replyButton);
       replyButton.className = "reply-button";
 
-      // add event listener to append reply to reply container STILL WORKING ON THIS
+      // add comment to reply when click reply button first DONE
       replyButton.addEventListener("click", function () {
-        //if no direct-reply-container, don't repeat (???)
-        // replyButton.display = none; NOT WORKING
-
         const directReplyContainer = document.createElement("div");
         replyDiv.append(directReplyContainer);
         directReplyContainer.className = "direct-reply-container";
@@ -202,8 +199,34 @@ fetch("./data.json")
         directReplyContainer.append(submitButton);
         submitButton.className = "submit-button";
 
+        //append new comment, creating new div and comment WORKS
         submitButton.addEventListener("click", function () {
-          //append new comment, creating new div and comment
+          // create new comment container div
+          const newCommentContainer = document.createElement("div");
+          document.body.append(newCommentContainer);
+          newCommentContainer.className = "new-comment-container";
+
+          // append user avatar julius WORKS
+          const userAvatar = document.createElement("img");
+          userAvatar.src = reply.user.image.png;
+          newCommentContainer.append(userAvatar);
+
+          // add username julius
+          const userName = document.createElement("span");
+          userName.textContent = reply.user.username;
+          newCommentContainer.append(userName);
+          userName.className = "username";
+
+          // add post date
+          const postDate = document.createElement("span");
+          postDate.textContent = reply.createdAt;
+          newCommentContainer.append(postDate);
+          postDate.className = "post-date";
+
+          // insert new comment
+          const post = document.createElement("p");
+          post.textContent = inputText.value;
+          newCommentContainer.append(post);
         });
       });
     }
