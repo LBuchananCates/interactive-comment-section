@@ -191,6 +191,7 @@ fetch("./data.json")
         }
 
         //NEW COMMENT APPENDED TO EXISTING COMMENTS WORKS
+        const submitButton = document.querySelector(".submit-button");
         submitButton.addEventListener("click", function () {
           // create new comment container div
           const newCommentContainer = document.createElement("div");
@@ -199,12 +200,12 @@ fetch("./data.json")
 
           // append user avatar julius WORKS
           const userAvatar = document.createElement("img");
-          userAvatar.src = reply.user.image.png;
+          userAvatar.src = "./images/avatars/image-juliusomo.png"; // DONT CHANGE
           newCommentContainer.append(userAvatar);
 
           // add username julius
           const userName = document.createElement("span");
-          userName.textContent = reply.user.username;
+          userName.textContent = replies[1].user.username; // FIXED IT
           newCommentContainer.append(userName);
           userName.className = "username";
 
@@ -216,7 +217,7 @@ fetch("./data.json")
 
           // insert new comment
           const post = document.createElement("p");
-          post.textContent = inputText.value;
+          post.textContent = inputText.value; // inputText not defined
           newCommentContainer.append(post);
 
           // insert plus votes button to votes div
