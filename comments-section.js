@@ -42,7 +42,7 @@ fetch("./data.json")
       plusVotes.textContent = "+";
       votesDiv.append(plusVotes);
       plusVotes.className = "plus";
-      // 2. current votes default
+      // 2. current votes default WORKS
       const currentVotes = document.createElement("span");
       currentVotes.textContent = comment.score;
       votesDiv.append(currentVotes);
@@ -96,6 +96,7 @@ fetch("./data.json")
           currentUserAvatar.className = "current-user-avatar";
           const inputText = document.createElement("input");
           directReplyContainer.append(inputText);
+          inputText.className = "input-text";
           const submitButton = document.createElement("button");
           submitButton.textContent = "REPLY";
           directReplyContainer.append(submitButton);
@@ -147,7 +148,7 @@ fetch("./data.json")
       plusVotes.className = "plus";
       // 2. current votes default to votes div
       const currentVotes = document.createElement("span");
-      currentVotes.textContent = comments[1].replies[0].score; //check on this!!!
+      currentVotes.textContent = replies[0].score; //check on this!!!
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
       // 3. insert minus votes button to votes div
@@ -188,68 +189,72 @@ fetch("./data.json")
           submitButton.textContent = "REPLY";
           directReplyContainer.append(submitButton);
           submitButton.className = "submit-button";
+
+          //NEW COMMENT APPENDED TO EXISTING COMMENTS WORKS
+          submitButton.addEventListener("click", function () {
+            // create new comment container div
+            const newCommentContainer = document.createElement("div");
+            document.body.append(newCommentContainer);
+            newCommentContainer.className = "new-comment-container";
+
+            // append user avatar julius WORKS
+            const userAvatar = document.createElement("img");
+            userAvatar.src = "./images/avatars/image-juliusomo.png"; // DONT CHANGE
+            newCommentContainer.append(userAvatar);
+
+            // add username julius
+            const userName = document.createElement("span");
+            userName.textContent = replies[1].user.username; // FIXED IT
+            newCommentContainer.append(userName);
+            userName.className = "username";
+
+            // add post date
+            const postDate = document.createElement("span");
+            postDate.textContent = reply.createdAt;
+            newCommentContainer.append(postDate);
+            postDate.className = "post-date";
+
+            // insert new comment
+            const newPost = document.createElement("p");
+            newPost.textContent = inputText.value;
+            newCommentContainer.append(newPost);
+
+            // votesDiv for reply container
+            const votesDiv = document.createElement("span");
+            newCommentContainer.append(votesDiv);
+            votesDiv.className = "votes";
+
+            // insert plus votes button to votes div
+            const plusVotes = document.createElement("button");
+            plusVotes.textContent = "+";
+            votesDiv.append(plusVotes);
+            plusVotes.className = "plus";
+
+            // current votes default to votes div
+            const currentVotes = document.createElement("span");
+            currentVotes.textContent = comments[1].replies[0].score; //check on this!!!
+            votesDiv.append(currentVotes);
+            currentVotes.className = "current-votes";
+
+            // insert minus votes button to votes div
+            const minusVotes = document.createElement("button");
+            minusVotes.textContent = "-";
+            votesDiv.append(minusVotes);
+            minusVotes.className = "minus";
+
+            // add arrow icon to reply container div
+            const arrowIcon = document.createElement("img");
+            arrowIcon.src = "./images/icon-reply.svg";
+            newCommentContainer.append(arrowIcon);
+            arrowIcon.className = "arrow-icon";
+
+            // add reply button to reply container div
+            const replyButton = document.createElement("button");
+            replyButton.textContent = "Reply";
+            newCommentContainer.append(replyButton);
+            replyButton.className = "reply-button";
+          });
         }
-
-        //NEW COMMENT APPENDED TO EXISTING COMMENTS WORKS
-        const submitButton = document.querySelector(".submit-button");
-        submitButton.addEventListener("click", function () {
-          // create new comment container div
-          const newCommentContainer = document.createElement("div");
-          document.body.append(newCommentContainer);
-          newCommentContainer.className = "new-comment-container";
-
-          // append user avatar julius WORKS
-          const userAvatar = document.createElement("img");
-          userAvatar.src = "./images/avatars/image-juliusomo.png"; // DONT CHANGE
-          newCommentContainer.append(userAvatar);
-
-          // add username julius
-          const userName = document.createElement("span");
-          userName.textContent = replies[1].user.username; // FIXED IT
-          newCommentContainer.append(userName);
-          userName.className = "username";
-
-          // add post date
-          const postDate = document.createElement("span");
-          postDate.textContent = reply.createdAt;
-          newCommentContainer.append(postDate);
-          postDate.className = "post-date";
-
-          // insert new comment
-          const post = document.createElement("p");
-          post.textContent = inputText.value; // inputText not defined
-          newCommentContainer.append(post);
-
-          // insert plus votes button to votes div
-          const plusVotes = document.createElement("button");
-          plusVotes.textContent = "+";
-          newCommentContainer.append(plusVotes);
-          plusVotes.className = "plus";
-
-          // current votes default to votes div
-          const currentVotes = document.createElement("span");
-          currentVotes.textContent = comments[1].replies[0].score; //check on this!!!
-          newCommentContainer.append(currentVotes);
-          currentVotes.className = "current-votes";
-
-          // insert minus votes button to votes div
-          const minusVotes = document.createElement("button");
-          minusVotes.textContent = "-";
-          newCommentContainer.append(minusVotes);
-          minusVotes.className = "minus";
-
-          // add arrow icon to reply container div
-          const arrowIcon = document.createElement("img");
-          arrowIcon.src = "./images/icon-reply.svg";
-          newCommentContainer.append(arrowIcon);
-          arrowIcon.className = "arrow-icon";
-
-          // add reply button to reply container div
-          const replyButton = document.createElement("button");
-          replyButton.textContent = "Reply";
-          newCommentContainer.append(replyButton);
-          replyButton.className = "reply-button";
-        });
       });
     }
   });
