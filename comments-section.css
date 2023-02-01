@@ -44,6 +44,10 @@ img {
   margin: 0px 5px;
 }
 
+.comment {
+  color: hsl(211, 10%, 45%);
+}
+
 .votes {
   display: inline;
   justify-content: space-between;
@@ -61,11 +65,12 @@ img {
 
 .current-votes {
   color: hsl(249deg 45% 42%);
-  font-weight: 400;
+  font-weight: bold;
 }
 
 .reply-container {
-  display: inline-flex; /* inline flex??? */
+  display: inline;
+  float: right;
 }
 
 .direct-reply-container {
@@ -112,6 +117,16 @@ input {
 .new-comment-container {
   background-color: white;
   border-radius: 6px;
+  margin-left: 35px;
+  margin-right: 6px;
+  padding: 17px;
 }
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
+
+@media screen and (min-width: 1440px) {
+  .votes {
+    display: flex;
+    flex-direction: column;
+  }
+}
