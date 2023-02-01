@@ -100,6 +100,72 @@ fetch("./data.json")
           submitButton.textContent = "REPLY";
           directReplyContainer.append(submitButton);
           submitButton.className = "submit-button";
+
+          submitButton.addEventListener("click", function () {
+            // create new comment container div
+            const newCommentContainer = document.createElement("div");
+            document.body.append(newCommentContainer);
+            newCommentContainer.className = "new-comment-container";
+
+            // append user avatar julius WORKS
+            const userAvatar = document.createElement("img");
+            userAvatar.src = "./images/avatars/image-juliusomo.png"; // DONT CHANGE
+            newCommentContainer.append(userAvatar);
+
+            // add username julius
+            const userName = document.createElement("span");
+            userName.textContent = replies[1].user.username; // FIXED IT
+            newCommentContainer.append(userName);
+            userName.className = "username";
+
+            // add post date
+            const postDate = document.createElement("span");
+            postDate.textContent = reply.createdAt;
+            newCommentContainer.append(postDate);
+            postDate.className = "post-date";
+
+            // insert new comment
+            const newPost = document.createElement("p");
+            newPost.textContent = inputText.value;
+            newCommentContainer.append(newPost);
+
+            // votesDiv for reply container
+            const votesDiv = document.createElement("span");
+            newCommentContainer.append(votesDiv);
+            votesDiv.className = "votes";
+
+            // insert plus votes button to votes div
+            const plusVotes = document.createElement("button");
+            plusVotes.textContent = "+";
+            votesDiv.append(plusVotes);
+            plusVotes.className = "plus";
+
+            // current votes default to votes div
+            const currentVotes = document.createElement("span");
+            currentVotes.textContent = comments[1].replies[0].score; //check on this!!!
+            votesDiv.append(currentVotes);
+            currentVotes.className = "current-votes";
+
+            // insert minus votes button to votes div
+            const minusVotes = document.createElement("button");
+            minusVotes.textContent = "-";
+            votesDiv.append(minusVotes);
+            minusVotes.className = "minus";
+
+            // add arrow icon to reply container div
+            const arrowIcon = document.createElement("img");
+            arrowIcon.src = "./images/icon-reply.svg";
+            newCommentContainer.append(arrowIcon);
+            arrowIcon.className = "arrow-icon";
+
+            // add reply button to reply container div
+            const replyButton = document.createElement("button");
+            replyButton.textContent = "Reply";
+            newCommentContainer.append(replyButton);
+            replyButton.className = "reply-button";
+
+            // make direct reply container disappear
+          });
         }
         // currentUser avatar + input + reply button that appends innerHTML to comment
       });
@@ -264,6 +330,8 @@ fetch("./data.json")
             replyButton.textContent = "Reply";
             newCommentContainer.append(replyButton);
             replyButton.className = "reply-button";
+
+            // make direct reply container disappear
           });
         }
       });
