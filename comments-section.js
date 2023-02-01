@@ -47,24 +47,23 @@ fetch("./data.json")
       currentVotes.textContent = comment.score;
       votesDiv.append(currentVotes);
       currentVotes.className = "current-votes";
-      // event listener for upvotes: LET OR CONST?????????????
-      const plusButton = document.querySelector(".plus");
-      plusButton.addEventListener("click", function () {
-        let currentScore = comment.score; // got this working - don't change
+
+      // event listener for upvotes
+      let currentScore = comment.score; // YES THIS WORKS
+      plusVotes.addEventListener("click", function () {
         currentScore += 1;
         currentVotes.textContent = currentScore;
       });
+
       // 3. insert minus votes button
       const minusVotes = document.createElement("button");
       minusVotes.textContent = "-";
       votesDiv.append(minusVotes);
       minusVotes.className = "minus";
-      // 3a. event listener for downvotes: LET OR CONST?????????????
-      const minusButton = document.querySelector(".minus");
-      minusButton.addEventListener("click", function () {
-        let currentScore = comment.score;
-        currentVotes.textContent = currentScore;
+      // 3a. event listener for downvotes
+      minusVotes.addEventListener("click", function () {
         currentScore -= 1;
+        currentVotes.textContent = currentScore;
       });
 
       // reply container: arrow icon, reply button
@@ -146,6 +145,13 @@ fetch("./data.json")
       plusVotes.textContent = "+";
       votesDiv.append(plusVotes);
       plusVotes.className = "plus";
+
+      let currentScore = reply.score; // YES THIS WORKS
+      plusVotes.addEventListener("click", function () {
+        currentScore += 1;
+        currentVotes.textContent = currentScore;
+      });
+
       // 2. current votes default to votes div
       const currentVotes = document.createElement("span");
       currentVotes.textContent = replies[0].score; //check on this!!!
@@ -156,6 +162,11 @@ fetch("./data.json")
       minusVotes.textContent = "-";
       votesDiv.append(minusVotes);
       minusVotes.className = "minus";
+
+      minusVotes.addEventListener("click", function () {
+        currentScore -= 1;
+        currentVotes.textContent = currentScore;
+      });
 
       // container: arrow icon, reply button
       const replyContainer = document.createElement("div");
