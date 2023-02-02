@@ -343,10 +343,17 @@ fetch("./data.json")
     document.body.append(addNewCommentContainer);
     addNewCommentContainer.className = "add-new-comment-container";
 
+    // add logged in user avatar
+    const userAvatar = document.createElement("img");
+    userAvatar.src = "./images/avatars/image-juliusomo.png"; // DONT CHANGE
+    addNewCommentContainer.append(userAvatar);
+
+    // add input
     const addNewComment = document.createElement("input");
     addNewCommentContainer.append(addNewComment);
     addNewComment.className = "add-new-comment";
 
+    // placeholder text in input
     document.getElementsByClassName("add-new-comment")[0].placeholder =
       "Add new comment";
   });
