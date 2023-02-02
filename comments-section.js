@@ -295,6 +295,7 @@ fetch("./data.json")
             const newPost = document.createElement("p");
             newPost.textContent = inputText.value;
             newCommentContainer.append(newPost);
+            newPost.className = "comment";
 
             // votesDiv for reply container
             const votesDiv = document.createElement("span");
@@ -331,9 +332,21 @@ fetch("./data.json")
             newCommentContainer.append(replyButton);
             replyButton.className = "reply-button";
 
-            // make direct reply container disappear
+            // create delete functionality for logged in user (hint: something.remove)
           });
         }
       });
     }
+
+    // create new container for logged in user to add new comment
+    const addNewCommentContainer = document.createElement("div");
+    document.body.append(addNewCommentContainer);
+    addNewCommentContainer.className = "add-new-comment-container";
+
+    const addNewComment = document.createElement("input");
+    addNewCommentContainer.append(addNewComment);
+    addNewComment.className = "add-new-comment";
+
+    document.getElementsByClassName("add-new-comment")[0].placeholder =
+      "Add new comment";
   });
