@@ -69,25 +69,24 @@ function createVoteContainer(container, jsonComment) {
 
 function createReplyButton(container, currentUser) {
   // reply container: arrow icon, reply button
-  const replyContainer = document.createElement("div");
-  container.append(replyContainer);
-  replyContainer.className = "reply-container";
+  const replyButtonContainer = document.createElement("div");
+  container.append(replyButtonContainer);
+  replyButtonContainer.className = "reply-button-container";
   // 1. arrow icon
   const arrowIcon = document.createElement("img");
   arrowIcon.src = "./images/icon-reply.svg";
-  replyContainer.append(arrowIcon);
+  replyButtonContainer.append(arrowIcon);
   arrowIcon.className = "arrow-icon";
   // 2. reply button
   const replyButton = document.createElement("button");
   replyButton.textContent = "Reply";
-  replyContainer.append(replyButton);
+  replyButtonContainer.append(replyButton);
   replyButton.className = "reply-button";
 
   replyButton.addEventListener("click", function () {
     const drc = document.querySelector(".direct-reply-container");
 
     if (!drc) {
-      // can i make this a function below? //
       // create reply container
       const directReplyContainer = document.createElement("div");
       container.append(directReplyContainer);
@@ -154,68 +153,19 @@ function createReplyDiv() {
 }
 
 function createReplyButton(container) {
-  const replyContainer = document.createElement("div");
-  container.append(replyContainer);
-  replyContainer.className = "reply-container";
+  const replyButtonContainer = document.createElement("div");
+  container.append(replyButtonContainer);
+  replyButtonContainer.className = "reply-button-container";
 
   const arrowIcon = document.createElement("img");
   arrowIcon.src = "./images/icon-reply.svg";
-  replyContainer.append(arrowIcon);
+  replyButtonContainer.append(arrowIcon);
   arrowIcon.className = "arrow-icon";
 
   const replyButton = document.createElement("button");
   replyButton.textContent = "Reply";
-  replyContainer.append(replyButton);
+  replyButtonContainer.append(replyButton);
   replyButton.className = "reply-button";
-}
-
-function submitCurrentUserReply() {
-  const newCommentContainer = document.createElement("div");
-  document.body.append(newCommentContainer);
-  newCommentContainer.className = "new-comment-container";
-
-  createAvatar(newCommentContainer, currentUser.image.png);
-  createUsername(newCommentContainer, currentUser.username);
-  createPostDate(newCommentContainer, reply.createdAt);
-  createComment(newCommentContainer, inputText.value);
-  createVoteContainer(newCommentContainer, comments[1].replies[0].score);
-  createReplyButton(newCommentContainer);
-}
-// create delete functionality for logged in user (hint: element.remove onclick event)
-function deleteComment() {
-  const element = document.createElement("div");
-  element.remove;
-}
-
-function createDeleteIconAndButton(container) {
-  const deleteAndEditButtonsContainer = document.createElement("div");
-  container.append(deleteAndEditButtonsContainer);
-  deleteAndEditButtonsContainer.className = "delete-edit-buttons-container";
-  // insert delete icon & button
-  const deleteButtonIcon = document.createElement("img");
-  deleteButtonIcon.src = "./images/icon-delete.svg";
-  deleteAndEditButtonsContainer.append(deleteButtonIcon);
-  deleteButtonIcon.className = "delete-button-icon";
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteAndEditButtonsContainer.append(deleteButton);
-  deleteButton.className = "delete-button";
-
-  // delete functionality
-  deleteButton.addEventListener("click", function () {});
-
-  // insert edit buttons
-  const editButtonIcon = document.createElement("img");
-  editButtonIcon.src = "./images/icon-edit.svg";
-  deleteAndEditButtonsContainer.append(editButtonIcon);
-  editButtonIcon.className = "edit-button-icon";
-  const editButton = document.createElement("button");
-  editButton.textContent = "Edit";
-  deleteAndEditButtonsContainer.append(editButton);
-  editButton.className = "edit-button";
-
-  // edit functionality
-  editButton.addEventListener("click", function () {});
 }
 
 fetch("./data.json")
@@ -232,6 +182,8 @@ fetch("./data.json")
       createComment(commentDiv, comment.content);
       createVoteContainer(commentDiv, comment);
       createReplyButton(commentDiv, currentUser);
+
+      // clicking reply to add comment before submitting
     }
 
     const replies = json.comments[1].replies;
@@ -251,55 +203,107 @@ fetch("./data.json")
       createComment(replyDiv, reply.content);
       createVoteContainer(replyDiv, reply);
       createDeleteIconAndButton(replyDiv);
-      createReplyButton(replyDiv); // reply button from line 276 dependent on this function
+
+      // insert container for delete and edit icons and buttons
+      const deleteAndEditButtonsContainer = document.createElement("div");
+      replyDiv.append(deleteAndEditButtonsContainer);
+      deleteAndEditButtonsContainer.className = "delete-edit-buttons-container";
+      // insert delete icon & button
+      const deleteButtonIcon = document.createElement("img");
+      deleteButtonIcon.src = "./images/icon-delete.svg";
+      deleteAndEditButtonsContainer.append(deleteButtonIcon);
+      deleteButtonIcon.className = "delete-button-icon";
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteAndEditButtonsContainer.append(deleteButton);
+      deleteButton.className = "delete-button";
+
+      // delete functionality
+      deleteButton.addEventListener("click", function () {});
+
+      // insert edit buttons
+      const editButtonIcon = document.createElement("img");
+      editButtonIcon.src = "./images/icon-edit.svg";
+      deleteAndEditButtonsContainer.append(editButtonIcon);
+      editButtonIcon.className = "edit-button-icon";
+      const editButton = document.createElement("button");
+      editButton.textContent = "Edit";
+      deleteAndEditButtonsContainer.append(editButton);
+      editButton.className = "edit-button";
+
+      // edit functionality
+      editButton.addEventListener("click", function () {});
+
+      createReplyButton(replyButtonContainer);
 
       // EDITABLE COMMENT DIV CONTAINER APPENDED
-      // define reply button below!!! //}
+      // define reply button below!!! //
+      replyButton.addEventListener("click", function () {
+        const drc = document.querySelector(".direct-reply-container");
+        if (!drc) {
+          const directReplyContainer = document.createElement("div");
+          replyDiv.append(directReplyContainer);
+          directReplyContainer.className = "direct-reply-container";
+          const currentUserAvatar = document.createElement("img");
+          currentUserAvatar.src = "./images/avatars/image-juliusomo.png";
+          directReplyContainer.append(currentUserAvatar);
+          currentUserAvatar.className = "current-user-avatar";
+          const inputText = document.createElement("input");
+          directReplyContainer.append(inputText);
+          const submitButton = document.createElement("button");
+          submitButton.textContent = "REPLY";
+          directReplyContainer.append(submitButton);
+          submitButton.className = "submit-button";
+
+          function submit() {
+            // create new comment container div
+            const newCommentContainer = document.createElement("div");
+            document.body.append(newCommentContainer);
+            newCommentContainer.className = "new-comment-container";
+
+            // append user avatar julius WORKS
+            createAvatar(newCommentContainer, currentUser.image.png);
+            createUsername(newCommentContainer, currentUser.username);
+            createPostDate(newCommentContainer, reply.createdAt);
+            createComment(newCommentContainer, inputText.value);
+            createVoteContainer(
+              newCommentContainer,
+              comments[1].replies[0].score
+            );
+            createReplyButton(newCommentContainer);
+
+            // create delete functionality for logged in user (hint: element.remove onclick event)
+          }
+
+          //NEW COMMENT APPENDED TO EXISTING COMMENTS WORKS
+          // submitButton.addEventListener("click", submit);
+        }
+      });
     }
 
-    function directReplyContainer() {
-      const drc = document.querySelector(".direct-reply-container");
-      if (!drc) {
-        const directReplyContainer = document.createElement("div");
-        replyDiv.append(directReplyContainer);
-        directReplyContainer.className = "direct-reply-container";
-        const currentUserAvatar = document.createElement("img");
-        currentUserAvatar.src = currentUser.image.png;
-        directReplyContainer.append(currentUserAvatar);
-        currentUserAvatar.className = "current-user-avatar";
-        const inputText = document.createElement("input");
-        directReplyContainer.append(inputText);
-        const submitButton = document.createElement("button");
-        submitButton.textContent = "REPLY";
-        directReplyContainer.append(submitButton);
-        submitButton.className = "submit-button";
-      }
-      replyButton.addEventListener("click", directReplyContainer);
-      submitButton.addEventListener("click", submitCurrentUserReply);
-    }
-    // create new container for logged in user to add new comment
-    const addNewCommentContainer = document.createElement("div");
-    document.body.append(addNewCommentContainer);
-    addNewCommentContainer.className = "add-new-comment-container";
+    // // create new container for logged in user to add new comment
+    // const addNewCommentContainer = document.createElement("div");
+    // document.body.append(addNewCommentContainer);
+    // addNewCommentContainer.className = "add-new-comment-container";
 
-    // 1. add logged in user avatar
-    createAvatar(addNewCommentContainer, currentUser.image.png);
+    // // 1. add logged in user avatar
+    // createAvatar(addNewCommentContainer, currentUser.image.png);
 
-    // 2. add input
-    const addNewComment = document.createElement("input");
-    addNewCommentContainer.append(addNewComment);
-    addNewComment.className = "add-new-comment";
+    // // 2. add input
+    // const addNewComment = document.createElement("input");
+    // addNewCommentContainer.append(addNewComment);
+    // addNewComment.className = "add-new-comment";
 
-    // 2a. placeholder text in input
-    document.getElementsByClassName("add-new-comment")[0].placeholder =
-      "Add new comment...";
+    // // 2a. placeholder text in input
+    // document.getElementsByClassName("add-new-comment")[0].placeholder =
+    //   "Add new comment...";
 
-    // 3. send button
-    const sendButton = document.createElement("button");
-    sendButton.textContent = "SEND";
-    addNewCommentContainer.append(sendButton);
-    sendButton.className = "send-button";
+    // // 3. send button
+    // const sendButton = document.createElement("button");
+    // sendButton.textContent = "SEND";
+    // addNewCommentContainer.append(sendButton);
+    // sendButton.className = "send-button";
 
-    // 4. functionality of send button
-    sendButton.addEventListener("click", function () {});
+    // // 4. functionality of send button
+    // sendButton.addEventListener("click", function () {});
   });
