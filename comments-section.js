@@ -87,23 +87,26 @@ function createCommentReplyButtonContainer(container, currentUser) {
   // event listener: CLICK REPLY BUTTON, DO THIS
   replyButton.addEventListener("click", function () {
     // when reply button clicked, create commentReplyDiv, append avatar, input, and submitbutton
-    const commentsReplyDiv = document.createElement("div");
-    container.append(commentsReplyDiv);
-    commentsReplyDiv.className = "comment-reply-div";
+    const CRD = document.querySelector(".comment-reply-div");
+    if (!CRD) {
+      const commentsReplyDiv = document.createElement("div");
+      container.append(commentsReplyDiv);
+      commentsReplyDiv.className = "comment-reply-div";
 
-    // append currentUser avatar
-    createAvatar(commentsReplyDiv, currentUser);
+      // append currentUser avatar
+      createAvatar(commentsReplyDiv, currentUser);
 
-    // append input
-    const input = document.createElement("input");
-    commentsReplyDiv.append(input);
-    input.className = "input-container";
+      // append input
+      const input = document.createElement("input");
+      commentsReplyDiv.append(input);
+      input.className = "input-container";
 
-    // append submitButton
-    const inputReplyButton = document.createElement("button");
-    inputReplyButton.textContent = "REPLY";
-    commentsReplyDiv.append(inputReplyButton);
-    inputReplyButton.className = "input-reply-button";
+      // append submitButton
+      const inputReplyButton = document.createElement("button");
+      inputReplyButton.textContent = "REPLY";
+      commentsReplyDiv.append(inputReplyButton);
+      inputReplyButton.className = "input-reply-button";
+    }
   });
 }
 
