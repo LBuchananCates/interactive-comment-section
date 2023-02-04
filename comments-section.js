@@ -1,3 +1,5 @@
+// LIST OF FUNCTIONS NEEDED THROUGHOUT
+
 function createCommentDiv() {
   const commentDiv = document.createElement("div");
   document.body.append(commentDiv);
@@ -9,6 +11,7 @@ function createAvatar(container, avatarUrl) {
   const userAvatar = document.createElement("img");
   userAvatar.src = avatarUrl;
   container.append(userAvatar);
+  userAvatar.className = "user-avatar";
 }
 
 function createUsername(container, username) {
@@ -32,7 +35,7 @@ function createComment(container, comment) {
   post.className = "comment";
 }
 
-function createVoteContainer(container, jsonComment) {
+function createVotesContainer(container, jsonComment) {
   // insert votes-div: upvotes, current votes, downvotes
   const votesDiv = document.createElement("div");
   container.append(votesDiv);
@@ -53,21 +56,19 @@ function createVoteContainer(container, jsonComment) {
   votesDiv.append(minusVotes);
   minusVotes.className = "minus";
 
-  // event listener for upvotes
+  // event listener: UPVOTES & DOWNVOTES
   let currentScore = jsonComment.score; // YES THIS WORKS
   plusVotes.addEventListener("click", function () {
     currentScore += 1;
     currentVotes.textContent = currentScore;
   });
-
-  // 3a. event listener for downvotes
   minusVotes.addEventListener("click", function () {
     currentScore -= 1;
     currentVotes.textContent = currentScore;
   });
 }
 
-function createReplyButton(container) {
+function createCommentReplyButtonContainer(container, currentUser) {
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
@@ -81,33 +82,29 @@ function createReplyButton(container) {
   const replyButton = document.createElement("button");
   replyButton.textContent = "Reply";
   replyButtonContainer.append(replyButton);
-  replyButton.className = "reply-button";
+  replyButton.className = "main-comment-reply-button";
 
-  // if (!drc)
-}
+  // event listener: CLICK REPLY BUTTON, DO THIS
+  replyButton.addEventListener("click", function () {
+    // when reply button clicked, create commentReplyDiv, append avatar, input, and submitbutton
+    const commentsReplyDiv = document.createElement("div");
+    container.append(commentsReplyDiv);
+    commentsReplyDiv.className = "comment-reply-div";
 
-// function createReplyDiv() {
-//   // add reply to reply div
-//   const replyDiv = document.createElement("div");
-//   document.body.append(replyDiv);
-//   replyDiv.className = "reply-div";
-//   return replyDiv;
-// }
+    // append currentUser avatar
+    createAvatar(commentsReplyDiv, currentUser);
 
-function createReplyButton(container) {
-  const replyButtonContainer = document.createElement("div");
-  container.append(replyButtonContainer);
-  replyButtonContainer.className = "reply-button-container";
+    // append input
+    const input = document.createElement("input");
+    commentsReplyDiv.append(input);
+    input.className = "input-container";
 
-  const arrowIcon = document.createElement("img");
-  arrowIcon.src = "./images/icon-reply.svg";
-  replyButtonContainer.append(arrowIcon);
-  arrowIcon.className = "arrow-icon";
-
-  const replyButton = document.createElement("button");
-  replyButton.textContent = "Reply";
-  replyButtonContainer.append(replyButton);
-  replyButton.className = "reply-button";
+    // append submitButton
+    const inputReplyButton = document.createElement("button");
+    inputReplyButton.textContent = "REPLY";
+    commentsReplyDiv.append(inputReplyButton);
+    inputReplyButton.className = "input-reply-button";
+  });
 }
 
 fetch("./data.json")
@@ -122,43 +119,40 @@ fetch("./data.json")
       createUsername(commentDiv, comment.user.username);
       createPostDate(commentDiv, comment.createdAt);
       createComment(commentDiv, comment.content);
-      createVoteContainer(commentDiv, comment);
-      createReplyButton(commentDiv, currentUser);
-
-      // clicking reply to add comment before submitting
+      createVotesContainer(commentDiv, comment);
+      createCommentReplyButtonContainer(commentDiv, currentUser.image.png);
     }
 
-    const replies = json.comments[1].replies;
+    // const replies = json.comments[1].replies;
 
-    for (const reply of replies) {
-      const replyDiv = createReplyDiv();
-      createAvatar(replyDiv, reply.user.image.png);
-      createUsername(replyDiv, reply.user.username);
+    // for (const reply of replies) {
+    //   const replyDiv = createReplyDiv();
+    //   createAvatar(replyDiv, reply.user.image.png);
+    //   createUsername(replyDiv, reply.user.username);
 
-      // add "you" badge next to logged in user
-      const youBadge = document.createElement("span");
-      youBadge.textContent = "you";
-      replyDiv.append(youBadge);
-      youBadge.className = "you-badge";
+    //   // add "you" badge next to logged in user
+    //   const youBadge = document.createElement("span");
+    //   youBadge.textContent = "you";
+    //   replyDiv.append(youBadge);
+    //   youBadge.className = "you-badge";
 
-      createPostDate(replyDiv, reply.createdAt);
-      createComment(replyDiv, reply.content);
-      createVoteContainer(replyDiv, reply);
-      createDeleteIconAndButton(replyDiv);
+    //   createPostDate(replyDiv, reply.createdAt);
+    //   createComment(replyDiv, reply.content);
+    //   createVotesContainer(replyDiv, reply);
+    //   createDeleteIconAndButton(replyDiv);
 
-      // insert container for delete and edit icons and buttons
+    // insert container for delete and edit icons and buttons
 
-      // insert delete icon & button
+    // insert delete icon & button
 
-      // delete functionality
+    // delete functionality
 
-      // insert edit buttons
+    // insert edit buttons
 
-      // edit functionality
+    // edit functionality
 
-      // EDITABLE COMMENT DIV CONTAINER APPENDED
-      // define reply button below!!! //
-    }
+    // EDITABLE COMMENT DIV CONTAINER APPENDED
+    // define reply button below!!! //
 
     // // create new container for logged in user to add new comment
     // const addNewCommentContainer = document.createElement("div");
