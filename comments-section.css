@@ -16,7 +16,8 @@ body {
   margin: 15px 7px;
 }
 
-.user-avatar {
+.user-avatar,
+.current-user-avatar {
   width: 35px;
 }
 
@@ -33,7 +34,8 @@ body {
   margin: 0px 5px;
 }
 
-.comment {
+.posted-comment,
+.posted-reply {
   color: hsl(211, 10%, 45%);
 }
 
@@ -182,20 +184,4 @@ body {
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
 
 @media screen and (min-width: 1440px) {
-  .votes {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .minus,
-  .plus:hover {
-    opacity: 0.5;
-  }
-  .submit-button:hover {
-    opacity: 0.5;
-  }
-
-  .send-button:hover {
-    opacity: 0.5;
-  }
 }
