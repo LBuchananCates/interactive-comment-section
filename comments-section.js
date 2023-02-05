@@ -1,4 +1,4 @@
-// LIST OF FUNCTIONS NEEDED THROUGHOUT
+// comment functions
 
 function createCommentDiv() {
   const commentDiv = document.createElement("div");
@@ -29,10 +29,10 @@ function createPostDate(container, createdAt) {
 }
 
 function createComment(container, comment) {
-  const post = document.createElement("p");
-  post.textContent = comment;
-  container.append(post);
-  post.className = "comment";
+  const postedComment = document.createElement("p");
+  postedComment.textContent = comment;
+  container.append(postedComment);
+  postedComment.className = "posted-comment";
 }
 
 function createVotesContainer(container, jsonComment) {
@@ -110,6 +110,21 @@ function createCommentReplyButtonContainer(container, currentUser) {
   });
 }
 
+// reply functions
+function createReplyDiv() {
+  const replyDiv = document.createElement("div");
+  document.body.append(replyDiv);
+  replyDiv.className = "reply-div";
+  return replyDiv;
+}
+
+function createReply(container, reply) {
+  const postedReply = document.createElement("p");
+  postedReply.textContent = reply;
+  container.append(postedReply);
+  postedReply.className = "posted-reply";
+}
+
 fetch("./data.json")
   .then((response) => response.json())
   .then((json) => {
@@ -126,60 +141,43 @@ fetch("./data.json")
       createCommentReplyButtonContainer(commentDiv, currentUser.image.png);
     }
 
-    // const replies = json.comments[1].replies;
+    const replies = json.comments[1].replies;
 
-    // for (const reply of replies) {
-    //   const replyDiv = createReplyDiv();
-    //   createAvatar(replyDiv, reply.user.image.png);
-    //   createUsername(replyDiv, reply.user.username);
+    for (const reply of replies) {
+      const replyDiv = createReplyDiv();
+      createAvatar(replyDiv, reply.user.image.png);
+      createUsername(replyDiv, reply.user.username);
+      createPostDate(replyDiv, reply.createdAt);
+      createReply(replyDiv, reply.content);
+      createVotesContainer(replyDiv, reply);
+      createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
 
-    //   // add "you" badge next to logged in user
-    //   const youBadge = document.createElement("span");
-    //   youBadge.textContent = "you";
-    //   replyDiv.append(youBadge);
-    //   youBadge.className = "you-badge";
-
-    //   createPostDate(replyDiv, reply.createdAt);
-    //   createComment(replyDiv, reply.content);
-    //   createVotesContainer(replyDiv, reply);
-    //   createDeleteIconAndButton(replyDiv);
-
-    // insert container for delete and edit icons and buttons
-
-    // insert delete icon & button
-
-    // delete functionality
-
-    // insert edit buttons
-
-    // edit functionality
-
-    // EDITABLE COMMENT DIV CONTAINER APPENDED
-    // define reply button below!!! //
-
-    // // create new container for logged in user to add new comment
-    // const addNewCommentContainer = document.createElement("div");
-    // document.body.append(addNewCommentContainer);
-    // addNewCommentContainer.className = "add-new-comment-container";
-
-    // // 1. add logged in user avatar
-    // createAvatar(addNewCommentContainer, currentUser.image.png);
-
-    // // 2. add input
-    // const addNewComment = document.createElement("input");
-    // addNewCommentContainer.append(addNewComment);
-    // addNewComment.className = "add-new-comment";
-
-    // // 2a. placeholder text in input
-    // document.getElementsByClassName("add-new-comment")[0].placeholder =
-    //   "Add new comment...";
-
-    // // 3. send button
-    // const sendButton = document.createElement("button");
-    // sendButton.textContent = "SEND";
-    // addNewCommentContainer.append(sendButton);
-    // sendButton.className = "send-button";
-
-    // // 4. functionality of send button
-    // sendButton.addEventListener("click", function () {});
+      // insert container for delete and edit icons and buttons
+      // insert delete icon & button
+      // delete functionality
+      // insert edit buttons
+      // edit functionality
+      // EDITABLE COMMENT DIV CONTAINER APPENDED
+      // define reply button below!!! //
+      // // create new container for logged in user to add new comment
+      // const addNewCommentContainer = document.createElement("div");
+      // document.body.append(addNewCommentContainer);
+      // addNewCommentContainer.className = "add-new-comment-container";
+      // // 1. add logged in user avatar
+      // createAvatar(addNewCommentContainer, currentUser.image.png);
+      // // 2. add input
+      // const addNewComment = document.createElement("input");
+      // addNewCommentContainer.append(addNewComment);
+      // addNewComment.className = "add-new-comment";
+      // // 2a. placeholder text in input
+      // document.getElementsByClassName("add-new-comment")[0].placeholder =
+      //   "Add new comment...";
+      // // 3. send button
+      // const sendButton = document.createElement("button");
+      // sendButton.textContent = "SEND";
+      // addNewCommentContainer.append(sendButton);
+      // sendButton.className = "send-button";
+      // // 4. functionality of send button
+      // sendButton.addEventListener("click", function () {});
+    }
   });
