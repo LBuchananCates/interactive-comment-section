@@ -16,6 +16,14 @@ body {
   margin: 15px 7px;
 }
 
+.reply-div {
+  background-color: white;
+  color: hsl(211, 10%, 45%);
+  padding: 15px;
+  border-radius: 6px;
+  margin: 0px 7px 15px 30px;
+}
+
 .user-avatar,
 .current-user-avatar {
   width: 35px;
@@ -84,10 +92,17 @@ body {
 }
 
 .input-container {
-  border-color: hsl(249deg 45% 42%);
+  border: solid hsl(249deg 45% 42%);
   border-radius: 8px;
   border-width: 1px;
   margin: 0px 10px;
+  width: 100%;
+}
+
+.input-container:focus {
+  border: solid hsl(249deg 45% 42%);
+  outline: none;
+  border-width: 2px;
 }
 
 .input-reply-button {
@@ -98,63 +113,26 @@ body {
   font-size: medium;
 }
 
-.delete-edit-buttons-container {
-  display: inline-block;
-  padding: inherit;
-}
-
-.delete-button-icon {
-  width: 10px;
-}
-
-.delete-button {
-  color: red;
-}
-
-.edit-button-icon {
-  width: 10px;
-}
-
-.direct-reply-container {
-  display: flex;
-  padding: 14px 0px;
-}
-
-.you-badge {
-  background-color: hsl(249deg 45% 42%);
-  color: white;
-  font-weight: 400;
-  padding: 2px 5px;
-  border-radius: 4px;
-}
-
-.submit-button {
-  cursor: pointer;
-  color: white;
-  border-radius: 7px;
-  padding: 5px 15px;
-  background-color: hsl(249deg 45% 42%);
-  letter-spacing: 0.1em;
-}
-
-.reply-comments {
-  background-color: white;
-}
-
-.reply-div {
-  background-color: white;
-  color: hsl(211, 10%, 45%);
-  padding: 15px;
-  border-radius: 6px;
-  margin: 0px 7px 15px 30px;
-}
-
 .new-comment-container {
+  display: flex;
+  padding: 17px;
   background-color: white;
   border-radius: 6px;
   margin-left: 6px;
   margin-right: 6px;
-  padding: 17px;
+}
+
+.new-comment-input {
+  border: solid hsl(211, 10%, 45%);
+  border-radius: 6px;
+  border-width: 1px;
+  width: 100%;
+}
+
+.new-comment-input:focus {
+  border: 2px solid hsl(249deg 45% 42%);
+  outline: none;
+  border-width: 2px;
 }
 
 .add-new-comment-container {
@@ -172,13 +150,14 @@ body {
   padding: 9px;
 }
 
-.send-button {
+.new-comment-send-button {
   background-color: hsl(249deg 45% 42%);
   color: white;
   cursor: pointer;
   border-radius: 7px;
   padding: 5px 15px;
   letter-spacing: 0.1em;
+  border: none;
 }
 /* color: hsl(212, 24%, 26%); use this for: 
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
