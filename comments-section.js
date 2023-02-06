@@ -7,6 +7,13 @@ function createCommentDiv() {
   return commentDiv;
 }
 
+function createReplyDiv() {
+  const replyDiv = document.createElement("div");
+  document.body.append(replyDiv);
+  replyDiv.className = "reply-div";
+  return replyDiv;
+}
+
 function createAvatar(container, avatarUrl) {
   const userAvatar = document.createElement("img");
   userAvatar.src = avatarUrl;
@@ -33,6 +40,13 @@ function createComment(container, comment) {
   postedComment.textContent = comment;
   container.append(postedComment);
   postedComment.className = "posted-comment";
+}
+
+function createReply(container, reply) {
+  const postedReply = document.createElement("p");
+  postedReply.textContent = reply;
+  container.append(postedReply);
+  postedReply.className = "posted-reply";
 }
 
 function createVotesContainer(container, jsonComment) {
@@ -110,19 +124,11 @@ function createCommentReplyButtonContainer(container, currentUser) {
   });
 }
 
-// reply functions
-function createReplyDiv() {
-  const replyDiv = document.createElement("div");
-  document.body.append(replyDiv);
-  replyDiv.className = "reply-div";
-  return replyDiv;
-}
-
-function createReply(container, reply) {
-  const postedReply = document.createElement("p");
-  postedReply.textContent = reply;
-  container.append(postedReply);
-  postedReply.className = "posted-reply";
+function createNewCommentContainer() {
+  const newCommentContainer = document.createElement("div");
+  document.body.append(newCommentContainer);
+  newCommentContainer.className = "new-comment-container";
+  return newCommentContainer;
 }
 
 fetch("./data.json")
@@ -152,32 +158,26 @@ fetch("./data.json")
       createVotesContainer(replyDiv, reply);
       createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
 
-      // insert container for delete and edit icons and buttons
-      // insert delete icon & button
-      // delete functionality
-      // insert edit buttons
-      // edit functionality
-      // EDITABLE COMMENT DIV CONTAINER APPENDED
-      // define reply button below!!! //
-      // // create new container for logged in user to add new comment
-      // const addNewCommentContainer = document.createElement("div");
-      // document.body.append(addNewCommentContainer);
-      // addNewCommentContainer.className = "add-new-comment-container";
-      // // 1. add logged in user avatar
-      // createAvatar(addNewCommentContainer, currentUser.image.png);
-      // // 2. add input
-      // const addNewComment = document.createElement("input");
-      // addNewCommentContainer.append(addNewComment);
-      // addNewComment.className = "add-new-comment";
-      // // 2a. placeholder text in input
-      // document.getElementsByClassName("add-new-comment")[0].placeholder =
+      // create new container for logged in user to add new comment
+      // 1. create new comment container div
+      const newCommentContainer = createNewCommentContainer();
+      createAvatar(newCommentContainer, currentUser.image.png);
+      // 1b. add input
+      const createNewCommentInput = document.createElement("input");
+      newCommentContainer.append(createNewCommentInput);
+      createNewCommentInput.className = "new-comment-input";
+      // 1c. add send button
+      const createNewCommentSendButton = document.createElement("button");
+      createNewCommentSendButton.textContent = "Send";
+      newCommentContainer.append(createNewCommentSendButton);
+      createNewCommentSendButton.className = "new-comment-send-button";
+
+      // add brand new comment from logged in user
+
+      // 2a. placeholder text in input
+      // document.getElementsByClassName("new-comment-input")[0].placeholder =
       //   "Add new comment...";
-      // // 3. send button
-      // const sendButton = document.createElement("button");
-      // sendButton.textContent = "SEND";
-      // addNewCommentContainer.append(sendButton);
-      // sendButton.className = "send-button";
-      // // 4. functionality of send button
-      // sendButton.addEventListener("click", function () {});
     }
+
+    // Add new comment
   });
