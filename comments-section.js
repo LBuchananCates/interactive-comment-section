@@ -35,6 +35,13 @@ function createPostDate(container, createdAt) {
   postDate.className = "post-date";
 }
 
+function createMention(container, replyingTo) {
+  const mentionUsername = document.createElement("div");
+  mentionUsername.textContent = replyingTo;
+  container.append(mentionUsername);
+  mentionUsername.className = "mention-username";
+}
+
 function createComment(container, comment) {
   const postedComment = document.createElement("p");
   postedComment.textContent = comment;
@@ -165,6 +172,8 @@ fetch("./data.json")
       createAvatar(replyDiv, reply.user.image.png);
       createUsername(replyDiv, reply.user.username);
       createPostDate(replyDiv, reply.createdAt);
+
+      createMention(replyDiv, reply.replyingTo);
       createReply(replyDiv, reply.content);
       createVotesContainer(replyDiv, reply);
       createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
@@ -173,20 +182,21 @@ fetch("./data.json")
     // create new container for logged in user to add new comment
     const newCommentContainer = createNewCommentContainer();
     createAvatar(newCommentContainer, currentUser.image.png);
-    // 1b. input
     const newCommentInput = document.createElement("input");
     newCommentContainer.append(newCommentInput);
     newCommentInput.className = "new-comment-input";
     document.getElementsByClassName("new-comment-input")[0].placeholder =
       "Add new comment...";
 
-    // 1c. send button
     const newCommentSendButton = document.createElement("button");
     newCommentSendButton.textContent = "Send";
     newCommentContainer.append(newCommentSendButton);
     newCommentSendButton.className = "new-comment-send-button";
     newCommentSendButton.addEventListener("click", function () {
       newCommentContainer.remove();
+      // const replyDiv = document.querySelector(".reply-div");
+      // replyDiv.insertBefore(newCommentContainer, replyDiv);
+
       // if x doesn't exist, display new posted comment (this prevents duplicates)
       createPostedNewCommentContainer();
       const postedNewCommentContainer = document.querySelector(
