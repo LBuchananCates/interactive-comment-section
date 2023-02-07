@@ -120,6 +120,10 @@ function createCommentReplyButtonContainer(container, currentUser) {
       inputReplyButton.textContent = "REPLY";
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
+
+      inputReplyButton.addEventListener("click", function () {
+        // when this button clicked, append value of input to new comment
+      });
     }
   });
 }
@@ -181,9 +185,8 @@ fetch("./data.json")
     newCommentSendButton.textContent = "Send";
     newCommentContainer.append(newCommentSendButton);
     newCommentSendButton.className = "new-comment-send-button";
-
     newCommentSendButton.addEventListener("click", function () {
-      newCommentContainer.remove(); // FUCKING HELLL FINALLY
+      newCommentContainer.remove();
       // if x doesn't exist, display new posted comment (this prevents duplicates)
       createPostedNewCommentContainer();
       const postedNewCommentContainer = document.querySelector(
@@ -192,11 +195,7 @@ fetch("./data.json")
       createAvatar(postedNewCommentContainer, currentUser.image.png);
       createUsername(postedNewCommentContainer, currentUser.username);
       createComment(postedNewCommentContainer, newCommentInput.value);
-      // createCommentReplyButtonContainer(postedNewCommentContainer);
+      createVotesContainer(postedNewCommentContainer, "1");
+      // fuctions for edit and delete functionality b/c why would currentUser reply to their own post
     });
-    // add brand new comment from logged in user
-
-    // 2a. placeholder text in input
-
-    // Add new comment
   });
