@@ -131,6 +131,13 @@ function createNewCommentContainer() {
   return newCommentContainer;
 }
 
+function createPostedNewCommentContainer() {
+  const postedNewCommentContainer = document.createElement("div");
+  document.body.append(postedNewCommentContainer);
+  postedNewCommentContainer.className = "posted-new-comment-container";
+  return postedNewCommentContainer;
+}
+
 fetch("./data.json")
   .then((response) => response.json())
   .then((json) => {
@@ -157,27 +164,39 @@ fetch("./data.json")
       createReply(replyDiv, reply.content);
       createVotesContainer(replyDiv, reply);
       createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
-
-      // create new container for logged in user to add new comment
-      // 1. create new comment container div
-      const newCommentContainer = createNewCommentContainer();
-      createAvatar(newCommentContainer, currentUser.image.png);
-      // 1b. add input
-      const createNewCommentInput = document.createElement("input");
-      newCommentContainer.append(createNewCommentInput);
-      createNewCommentInput.className = "new-comment-input";
-      // 1c. add send button
-      const createNewCommentSendButton = document.createElement("button");
-      createNewCommentSendButton.textContent = "Send";
-      newCommentContainer.append(createNewCommentSendButton);
-      createNewCommentSendButton.className = "new-comment-send-button";
-
-      // add brand new comment from logged in user
-
-      // 2a. placeholder text in input
-      // document.getElementsByClassName("new-comment-input")[0].placeholder =
-      //   "Add new comment...";
     }
+
+    // create new container for logged in user to add new comment
+    const newCommentContainer = createNewCommentContainer();
+    createAvatar(newCommentContainer, currentUser.image.png);
+    // 1b. input
+    const newCommentInput = document.createElement("input");
+    newCommentContainer.append(newCommentInput);
+    newCommentInput.className = "new-comment-input";
+    document.getElementsByClassName("new-comment-input")[0].placeholder =
+      "Add new comment...";
+
+    // 1c. send button
+    const newCommentSendButton = document.createElement("button");
+    newCommentSendButton.textContent = "Send";
+    newCommentContainer.append(newCommentSendButton);
+    newCommentSendButton.className = "new-comment-send-button";
+
+    newCommentSendButton.addEventListener("click", function () {
+      newCommentContainer.remove(); // FUCKING HELLL FINALLY
+      // if x doesn't exist, display new posted comment (this prevents duplicates)
+      createPostedNewCommentContainer();
+      const postedNewCommentContainer = document.querySelector(
+        ".posted-new-comment-container"
+      );
+      createAvatar(postedNewCommentContainer, currentUser.image.png);
+      createUsername(postedNewCommentContainer, currentUser.username);
+      createComment(postedNewCommentContainer, newCommentInput.value);
+      // createCommentReplyButtonContainer(postedNewCommentContainer);
+    });
+    // add brand new comment from logged in user
+
+    // 2a. placeholder text in input
 
     // Add new comment
   });
