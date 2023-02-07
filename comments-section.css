@@ -21,7 +21,7 @@ body {
   color: hsl(211, 10%, 45%);
   padding: 15px;
   border-radius: 6px;
-  margin: 0px 7px 15px 30px;
+  margin: 0px 7px 15px 20px;
 }
 
 .user-avatar,
@@ -40,6 +40,11 @@ body {
 
 .post-date {
   margin: 0px 5px;
+}
+
+.mention-username {
+  color: hsl(249deg 45% 42%);
+  font-weight: bold;
 }
 
 .posted-comment,
@@ -88,7 +93,7 @@ body {
 .comment-reply-div {
   display: flex;
   flex-direction: row;
-  margin: inherit;
+  margin: 20px 3px;
 }
 
 .input-container {
@@ -126,13 +131,20 @@ body {
   border: solid hsl(211, 10%, 45%);
   border-radius: 6px;
   border-width: 1px;
-  width: 100%;
+  width: 100%; /* not sure if i should use this */
 }
 
 .new-comment-input:focus {
   border: 2px solid hsl(249deg 45% 42%);
   outline: none;
   border-width: 2px;
+}
+
+.posted-new-comment-container {
+  background-color: white;
+  border-radius: 6px;
+  margin: 15px 7px;
+  padding: 15px;
 }
 
 .add-new-comment-container {
@@ -163,4 +175,11 @@ body {
 username/handles, reply button font, icon reply, currentVotes, edit button font, send button background color */
 
 @media screen and (min-width: 1440px) {
+  .input-reply-button:hover {
+    opacity: 50%;
+  }
+
+  .mention-username:hover {
+    cursor: pointer;
+  }
 }
