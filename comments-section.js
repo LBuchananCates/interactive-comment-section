@@ -127,22 +127,22 @@ function createCommentReplyButtonContainer(container, currentUser) {
       commentsReplyDiv.append(input);
       input.className = "input-container";
 
-      // append submitButton why is this not working
       const inputReplyButton = document.createElement("button");
       inputReplyButton.textContent = "REPLY";
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
 
       inputReplyButton.addEventListener("click", function () {
-        commentsReplyDiv.remove();
-        createPostedCommentReplyContainer();
+        commentsReplyDiv.remove(); //this works
+        createPostedCommentReplyContainer(); //this works
         const postedCommentReplyContainer = document.querySelector(
           ".posted-comment-reply-container"
-        );
+        ); //this works
         createAvatar(postedCommentReplyContainer, currentUser.image.png);
         createUsername(postedCommentReplyContainer, currentUser.username);
         createComment(postedCommentReplyContainer, input.value);
         createVotesContainer(postedCommentReplyContainer, "1");
+        createCommentReplyButtonContainer(postedCommentReplyContainer);
       });
     }
   });
@@ -160,6 +160,28 @@ function createPostedNewCommentContainer() {
   document.body.append(postedNewCommentContainer);
   postedNewCommentContainer.className = "posted-new-comment-container";
   return postedNewCommentContainer;
+}
+
+function createDeleteAndEditButtons(container) {
+  const deleteButtonIcon = document.createElement("img");
+  deleteButtonIcon.src = "./images/icon-delete.svg";
+  container.append(deleteButtonIcon);
+  deleteButtonIcon.className = "delete-button-icon";
+
+  const deleteButton = document.createElement("button");
+  container.append(deleteButton);
+  deleteButton.textContent = "delete";
+  deleteButton.className = "delete-button";
+
+  const editButtonIcon = document.createElement("img");
+  editButtonIcon.src = "./images/icon-edit.svg";
+  container.append(editButtonIcon);
+  editButtonIcon.className = "edit-button-icon";
+
+  const editButton = document.createElement("button");
+  container.append(editButton);
+  editButton.textContent = "edit";
+  editButton.className = "edit-button";
 }
 
 fetch("./data.json")
@@ -209,7 +231,6 @@ fetch("./data.json")
       newCommentContainer.remove();
       // const replyDiv = document.querySelector(".reply-div");
       // replyDiv.insertBefore(newCommentContainer, replyDiv);
-      // if x doesn't exist, display new posted comment (this prevents duplicates)
       createPostedNewCommentContainer();
       const postedNewCommentContainer = document.querySelector(
         ".posted-new-comment-container"
@@ -217,7 +238,8 @@ fetch("./data.json")
       createAvatar(postedNewCommentContainer, currentUser.image.png);
       createUsername(postedNewCommentContainer, currentUser.username);
       createComment(postedNewCommentContainer, newCommentInput.value);
-      createVotesContainer(postedNewCommentContainer, "1");
+      createVotesContainer(postedNewCommentContainer, "1"); // need to make upvotes work, need "1" replaced by smth for next function to work
       // fuctions for edit and delete functionality b/c why would currentUser reply to their own post
+      createDeleteAndEditButtons(postedNewCommentContainer);
     });
   });
