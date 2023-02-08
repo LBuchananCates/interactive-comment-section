@@ -132,6 +132,8 @@ function createCommentReplyButtonContainer(container, currentUser) {
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
 
+      inputReplyButton.setAttribute("onclick", "inputReplyButton"); //
+
       inputReplyButton.addEventListener("click", function () {
         commentsReplyDiv.remove(); //this works
         createPostedCommentReplyContainer(); //this works
@@ -142,7 +144,7 @@ function createCommentReplyButtonContainer(container, currentUser) {
         createUsername(postedCommentReplyContainer, currentUser.username);
         createComment(postedCommentReplyContainer, input.value);
         createVotesContainer(postedCommentReplyContainer, "1");
-        createCommentReplyButtonContainer(postedCommentReplyContainer);
+        // createCommentReplyButtonContainer(postedCommentReplyContainer);
       });
     }
   });
@@ -177,8 +179,9 @@ function createDeleteAndEditButtons(container) {
   deleteButton.textContent = "delete";
   deleteButton.className = "delete-button";
 
-  deleteButton.addEventListener("click", function () {
-    container.remove(); // this works
+  deleteButton.addEventListener("click", function (e) {
+    container.remove(); // this works!
+    e.preventDefault;
   });
 
   const editButtonIcon = document.createElement("img");
@@ -190,6 +193,10 @@ function createDeleteAndEditButtons(container) {
   deleteAndEditButtonContainer.append(editButton);
   editButton.textContent = "edit";
   editButton.className = "edit-button";
+
+  editButton.addEventListener("click", function () {
+    container.edit(); // find the correct method for editing
+  });
 }
 
 fetch("./data.json")
@@ -246,8 +253,7 @@ fetch("./data.json")
       createAvatar(postedNewCommentContainer, currentUser.image.png);
       createUsername(postedNewCommentContainer, currentUser.username);
       createComment(postedNewCommentContainer, newCommentInput.value);
-      createVotesContainer(postedNewCommentContainer, "1"); // need to make upvotes work, need "1" replaced by smth for next function to work
-      // fuctions for edit and delete functionality b/c why would currentUser reply to their own post
+      createVotesContainer(postedNewCommentContainer, "1"); // let votes = 0
       createDeleteAndEditButtons(postedNewCommentContainer);
     });
   });
