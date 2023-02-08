@@ -163,23 +163,31 @@ function createPostedNewCommentContainer() {
 }
 
 function createDeleteAndEditButtons(container) {
+  const deleteAndEditButtonContainer = document.createElement("div");
+  container.append(deleteAndEditButtonContainer);
+  deleteAndEditButtonContainer.className = "delete-and-edit-button-container";
+
   const deleteButtonIcon = document.createElement("img");
   deleteButtonIcon.src = "./images/icon-delete.svg";
-  container.append(deleteButtonIcon);
+  deleteAndEditButtonContainer.append(deleteButtonIcon);
   deleteButtonIcon.className = "delete-button-icon";
 
   const deleteButton = document.createElement("button");
-  container.append(deleteButton);
+  deleteAndEditButtonContainer.append(deleteButton);
   deleteButton.textContent = "delete";
   deleteButton.className = "delete-button";
 
+  deleteButton.addEventListener("click", function () {
+    container.remove(); // this works
+  });
+
   const editButtonIcon = document.createElement("img");
   editButtonIcon.src = "./images/icon-edit.svg";
-  container.append(editButtonIcon);
+  deleteAndEditButtonContainer.append(editButtonIcon);
   editButtonIcon.className = "edit-button-icon";
 
   const editButton = document.createElement("button");
-  container.append(editButton);
+  deleteAndEditButtonContainer.append(editButton);
   editButton.textContent = "edit";
   editButton.className = "edit-button";
 }
