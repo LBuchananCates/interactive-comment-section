@@ -89,6 +89,13 @@ function createVotesContainer(container, jsonComment) {
   });
 }
 
+function createPostedCommentReplyContainer() {
+  const postedCommentReplyContainer = document.createElement("div");
+  document.body.append(postedCommentReplyContainer);
+  postedCommentReplyContainer.className = "posted-comment-reply-container";
+  return postedCommentReplyContainer;
+}
+
 function createCommentReplyButtonContainer(container, currentUser) {
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
@@ -113,8 +120,6 @@ function createCommentReplyButtonContainer(container, currentUser) {
       const commentsReplyDiv = document.createElement("div");
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
-
-      // append currentUser avatar
       createAvatar(commentsReplyDiv, currentUser);
 
       // append input
@@ -122,14 +127,22 @@ function createCommentReplyButtonContainer(container, currentUser) {
       commentsReplyDiv.append(input);
       input.className = "input-container";
 
-      // append submitButton
+      // append submitButton why is this not working
       const inputReplyButton = document.createElement("button");
       inputReplyButton.textContent = "REPLY";
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
 
       inputReplyButton.addEventListener("click", function () {
-        // when this button clicked, append value of input to new comment
+        commentsReplyDiv.remove();
+        createPostedCommentReplyContainer();
+        const postedCommentReplyContainer = document.querySelector(
+          ".posted-comment-reply-container"
+        );
+        createAvatar(postedCommentReplyContainer, currentUser.image.png);
+        createUsername(postedCommentReplyContainer, currentUser.username);
+        createComment(postedCommentReplyContainer, input.value);
+        createVotesContainer(postedCommentReplyContainer, "1");
       });
     }
   });
@@ -172,7 +185,6 @@ fetch("./data.json")
       createAvatar(replyDiv, reply.user.image.png);
       createUsername(replyDiv, reply.user.username);
       createPostDate(replyDiv, reply.createdAt);
-
       createMention(replyDiv, reply.replyingTo);
       createReply(replyDiv, reply.content);
       createVotesContainer(replyDiv, reply);
@@ -182,6 +194,7 @@ fetch("./data.json")
     // create new container for logged in user to add new comment
     const newCommentContainer = createNewCommentContainer();
     createAvatar(newCommentContainer, currentUser.image.png);
+
     const newCommentInput = document.createElement("input");
     newCommentContainer.append(newCommentInput);
     newCommentInput.className = "new-comment-input";
@@ -196,7 +209,6 @@ fetch("./data.json")
       newCommentContainer.remove();
       // const replyDiv = document.querySelector(".reply-div");
       // replyDiv.insertBefore(newCommentContainer, replyDiv);
-
       // if x doesn't exist, display new posted comment (this prevents duplicates)
       createPostedNewCommentContainer();
       const postedNewCommentContainer = document.querySelector(
