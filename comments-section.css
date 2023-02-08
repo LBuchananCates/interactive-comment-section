@@ -132,6 +132,7 @@ body {
   border-radius: 6px;
   border-width: 1px;
   width: 100%; /* not sure if i should use this */
+  margin: 0px 10px;
 }
 
 .new-comment-input:focus {
@@ -141,6 +142,34 @@ body {
 }
 
 .posted-new-comment-container {
+  background-color: white;
+  border-radius: 6px;
+  margin: 15px 7px;
+  padding: 15px;
+}
+
+.delete-and-edit-button-container {
+  display: inline;
+  float: right;
+}
+
+.edit-button {
+  color: hsl(249deg 45% 42%);
+  background-color: white;
+  border: 2px solid white;
+  font-size: inherit;
+  font-weight: bold;
+}
+
+.delete-button {
+  color: red;
+  background-color: white;
+  border: 2px solid white;
+  font-size: inherit;
+  font-weight: bold;
+}
+
+.posted-comment-reply-container {
   background-color: white;
   border-radius: 6px;
   margin: 15px 7px;
