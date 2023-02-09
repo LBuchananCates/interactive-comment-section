@@ -80,7 +80,13 @@ function createVotesContainer(container, jsonComment) {
   });
 }
 
-function createCommentReplyButtonContainer(container, currentUser) {
+function createInput(container) {
+  const input = document.createElement("input");
+  container.append(input);
+  input.className = "input";
+}
+
+function createCommentReplyButtonContainer(container, userImg) {
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
@@ -95,22 +101,17 @@ function createCommentReplyButtonContainer(container, currentUser) {
   replyButton.textContent = "Reply";
   replyButtonContainer.append(replyButton);
   replyButton.className = "main-comment-reply-button";
-
+  // reply button event listener
   replyButton.addEventListener("click", function () {
     const CRD = document.querySelector(".comment-reply-div");
     if (!CRD) {
       const commentsReplyDiv = document.createElement("div");
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
-
       // create avatar
-      createAvatar(commentsReplyDiv, currentUser);
-
+      createAvatar(commentsReplyDiv, userImg);
       // create input
-      const input = document.createElement("input");
-      commentsReplyDiv.append(input);
-      input.className = "input";
-
+      createInput(commentsReplyDiv);
       // create inputReplyButton
       const inputReplyButton = document.createElement("button");
       inputReplyButton.textContent = "REPLY";
@@ -124,9 +125,8 @@ function createCommentReplyButtonContainer(container, currentUser) {
           ".posted-comment-reply-container"
         ); //this works
 
-        const currentUser = json.currentUser;
         createPostedCommentReplyContainer(); //this works
-        createAvatar(postedCommentReplyContainer, currentUser.image.png);
+        createAvatar(postedCommentReplyContainer, userImg);
         createUsername(postedCommentReplyContainer, currentUser.username);
         createComment(postedCommentReplyContainer, input.value);
         createVotesContainer(postedCommentReplyContainer, "0");
