@@ -125,7 +125,7 @@ function createCommentReplyButtonContainer(container, currentUser) {
       // append input
       const input = document.createElement("input");
       commentsReplyDiv.append(input);
-      input.className = "input-container";
+      input.className = "input";
 
       const inputReplyButton = document.createElement("button");
       inputReplyButton.textContent = "REPLY";
@@ -179,9 +179,8 @@ function createDeleteAndEditButtons(container) {
   deleteButton.textContent = "delete";
   deleteButton.className = "delete-button";
 
-  deleteButton.addEventListener("click", function (e) {
+  deleteButton.addEventListener("click", function () {
     container.remove(); // this works!
-    e.preventDefault;
   });
 
   const editButtonIcon = document.createElement("img");
@@ -193,9 +192,13 @@ function createDeleteAndEditButtons(container) {
   deleteAndEditButtonContainer.append(editButton);
   editButton.textContent = "edit";
   editButton.className = "edit-button";
+  editButton.setAttribute("onclick", "alert('you have clicked edit button')");
 
   editButton.addEventListener("click", function () {
-    container.edit(); // find the correct method for editing
+    const postedNewCommentContainer = document.querySelector(
+      ".posted-new-comment-container"
+    ); // find the correct method for editing
+    // postedNewCommentContainer.style.display = none; //when i click edit, it responds
   });
 }
 
