@@ -96,15 +96,15 @@ body {
   margin: 20px 3px;
 }
 
-.input-container {
-  border: solid hsl(249deg 45% 42%);
+.input {
+  border: solid hsl(211, 10%, 45%);
   border-radius: 8px;
   border-width: 1px;
   margin: 0px 10px;
   width: 100%;
 }
 
-.input-container:focus {
+.input:focus {
   border: solid hsl(249deg 45% 42%);
   outline: none;
   border-width: 2px;
