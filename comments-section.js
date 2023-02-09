@@ -1,5 +1,3 @@
-// comment functions
-
 function createCommentDiv() {
   const commentDiv = document.createElement("div");
   document.body.append(commentDiv);
@@ -40,20 +38,13 @@ function createMention(container, replyingTo) {
   mentionUsername.textContent = replyingTo;
   container.append(mentionUsername);
   mentionUsername.className = "mention-username";
-}
+} // work on this after
 
 function createComment(container, comment) {
   const postedComment = document.createElement("p");
   postedComment.textContent = comment;
   container.append(postedComment);
   postedComment.className = "posted-comment";
-}
-
-function createReply(container, reply) {
-  const postedReply = document.createElement("p");
-  postedReply.textContent = reply;
-  container.append(postedReply);
-  postedReply.className = "posted-reply";
 }
 
 function createVotesContainer(container, jsonComment) {
@@ -89,13 +80,6 @@ function createVotesContainer(container, jsonComment) {
   });
 }
 
-function createPostedCommentReplyContainer() {
-  const postedCommentReplyContainer = document.createElement("div");
-  document.body.append(postedCommentReplyContainer);
-  postedCommentReplyContainer.className = "posted-comment-reply-container";
-  return postedCommentReplyContainer;
-}
-
 function createCommentReplyButtonContainer(container, currentUser) {
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
@@ -112,42 +96,50 @@ function createCommentReplyButtonContainer(container, currentUser) {
   replyButtonContainer.append(replyButton);
   replyButton.className = "main-comment-reply-button";
 
-  // event listener: CLICK REPLY BUTTON, DO THIS
   replyButton.addEventListener("click", function () {
-    // when reply button clicked, create commentReplyDiv, append avatar, input, and submitbutton
     const CRD = document.querySelector(".comment-reply-div");
     if (!CRD) {
       const commentsReplyDiv = document.createElement("div");
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
+
+      // create avatar
       createAvatar(commentsReplyDiv, currentUser);
 
-      // append input
+      // create input
       const input = document.createElement("input");
       commentsReplyDiv.append(input);
       input.className = "input";
 
+      // create inputReplyButton
       const inputReplyButton = document.createElement("button");
       inputReplyButton.textContent = "REPLY";
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
 
-      inputReplyButton.setAttribute("onclick", "inputReplyButton"); //
-
+      // inputReplyButton event listener
       inputReplyButton.addEventListener("click", function () {
         commentsReplyDiv.remove(); //this works
-        createPostedCommentReplyContainer(); //this works
         const postedCommentReplyContainer = document.querySelector(
           ".posted-comment-reply-container"
         ); //this works
+
+        const currentUser = json.currentUser;
+        createPostedCommentReplyContainer(); //this works
         createAvatar(postedCommentReplyContainer, currentUser.image.png);
         createUsername(postedCommentReplyContainer, currentUser.username);
         createComment(postedCommentReplyContainer, input.value);
-        createVotesContainer(postedCommentReplyContainer, "1");
-        // createCommentReplyButtonContainer(postedCommentReplyContainer);
+        createVotesContainer(postedCommentReplyContainer, "0");
       });
     }
   });
+}
+
+function createReply(container, reply) {
+  const postedReply = document.createElement("p");
+  postedReply.textContent = reply;
+  container.append(postedReply);
+  postedReply.className = "posted-reply";
 }
 
 function createNewCommentContainer() {
@@ -155,6 +147,13 @@ function createNewCommentContainer() {
   document.body.append(newCommentContainer);
   newCommentContainer.className = "new-comment-container";
   return newCommentContainer;
+}
+
+function createPostedCommentReplyContainer() {
+  const postedCommentReplyContainer = document.createElement("div");
+  document.body.append(postedCommentReplyContainer);
+  postedCommentReplyContainer.className = "posted-comment-reply-container";
+  return postedCommentReplyContainer;
 }
 
 function createPostedNewCommentContainer() {
@@ -181,6 +180,7 @@ function createDeleteAndEditButtons(container) {
 
   deleteButton.addEventListener("click", function () {
     container.remove(); // this works!
+    // newCommentContainer should show back up
   });
 
   const editButtonIcon = document.createElement("img");
@@ -198,7 +198,7 @@ function createDeleteAndEditButtons(container) {
     const postedNewCommentContainer = document.querySelector(
       ".posted-new-comment-container"
     ); // find the correct method for editing
-    // postedNewCommentContainer.style.display = none; //when i click edit, it responds
+    postedNewCommentContainer.style.display = none; //when i click edit, it responds
   });
 }
 
@@ -249,10 +249,7 @@ fetch("./data.json")
       newCommentContainer.remove();
       // const replyDiv = document.querySelector(".reply-div");
       // replyDiv.insertBefore(newCommentContainer, replyDiv);
-      createPostedNewCommentContainer();
-      const postedNewCommentContainer = document.querySelector(
-        ".posted-new-comment-container"
-      );
+      const postedNewCommentContainer = createPostedNewCommentContainer();
       createAvatar(postedNewCommentContainer, currentUser.image.png);
       createUsername(postedNewCommentContainer, currentUser.username);
       createComment(postedNewCommentContainer, newCommentInput.value);
