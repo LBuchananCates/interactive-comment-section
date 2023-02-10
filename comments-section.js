@@ -87,21 +87,20 @@ function createInput(container) {
 }
 
 function createCommentReplyButtonContainer(container, userImg) {
-  // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
   replyButtonContainer.className = "reply-button-container";
-  // 1. arrow icon
+
   const arrowIcon = document.createElement("img");
   arrowIcon.src = "./images/icon-reply.svg";
   replyButtonContainer.append(arrowIcon);
   arrowIcon.className = "arrow-icon";
-  // 2. reply button
+
   const replyButton = document.createElement("button");
   replyButton.textContent = "Reply";
   replyButtonContainer.append(replyButton);
   replyButton.className = "main-comment-reply-button";
-  // reply button event listener
+
   replyButton.addEventListener("click", function () {
     const CRD = document.querySelector(".comment-reply-div");
     if (!CRD) {
@@ -109,7 +108,7 @@ function createCommentReplyButtonContainer(container, userImg) {
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
       // create avatar
-      createAvatar(commentsReplyDiv, userImg); // fix this
+      createAvatar(commentsReplyDiv, userImg);
       // create input
       createInput(commentsReplyDiv);
       // create inputReplyButton
@@ -118,14 +117,11 @@ function createCommentReplyButtonContainer(container, userImg) {
       commentsReplyDiv.append(inputReplyButton);
       inputReplyButton.className = "input-reply-button";
 
-      // inputReplyButton event listener
       inputReplyButton.addEventListener("click", function () {
         commentsReplyDiv.remove(); //this works
         const postedCommentReplyContainer = document.querySelector(
           ".posted-comment-reply-container"
         ); //this works
-
-        const currentUser = json.currentUser; // why is this not working
         createPostedCommentReplyContainer(); //this works
         createAvatar(postedCommentReplyContainer, currentUser.image.png); // use json file info
         createUsername(postedCommentReplyContainer, currentUser.username); // use json file info
@@ -229,6 +225,13 @@ fetch("./data.json")
         createVotesContainer(replyDiv, reply);
         createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
       }
+    }
+    // create YOU badge
+    if (currentUserReplies) {
+      const youBadge = document.createElement("span");
+      youBadge.textContent = "YOU";
+      append(youBadge);
+      youBadge.className = "you-badge";
     }
 
     // create new container for logged in user to add new comment
