@@ -109,7 +109,7 @@ function createCommentReplyButtonContainer(container, userImg) {
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
       // create avatar
-      createAvatar(commentsReplyDiv, userImg);
+      createAvatar(commentsReplyDiv, userImg); // fix this
       // create input
       createInput(commentsReplyDiv);
       // create inputReplyButton
@@ -125,9 +125,11 @@ function createCommentReplyButtonContainer(container, userImg) {
           ".posted-comment-reply-container"
         ); //this works
 
+        const currentUser = json.currentUser; // why is this not working
         createPostedCommentReplyContainer(); //this works
-        createAvatar(postedCommentReplyContainer, userImg);
-        createUsername(postedCommentReplyContainer, currentUser.username);
+        createAvatar(postedCommentReplyContainer, currentUser.image.png); // use json file info
+        createUsername(postedCommentReplyContainer, currentUser.username); // use json file info
+        const input = document.querySelector(".input");
         createComment(postedCommentReplyContainer, input.value);
         createVotesContainer(postedCommentReplyContainer, "0");
       });
@@ -216,19 +218,17 @@ fetch("./data.json")
       createComment(commentDiv, comment.content);
       createVotesContainer(commentDiv, comment);
       createCommentReplyButtonContainer(commentDiv, currentUser.image.png);
-    }
 
-    const replies = json.comments[1].replies;
-
-    for (const reply of replies) {
-      const replyDiv = createReplyDiv();
-      createAvatar(replyDiv, reply.user.image.png);
-      createUsername(replyDiv, reply.user.username);
-      createPostDate(replyDiv, reply.createdAt);
-      createMention(replyDiv, reply.replyingTo);
-      createReply(replyDiv, reply.content);
-      createVotesContainer(replyDiv, reply);
-      createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
+      for (const reply of comment.replies) {
+        const replyDiv = createReplyDiv();
+        createAvatar(replyDiv, reply.user.image.png);
+        createUsername(replyDiv, reply.user.username);
+        createPostDate(replyDiv, reply.createdAt);
+        createMention(replyDiv, reply.replyingTo);
+        createReply(replyDiv, reply.content);
+        createVotesContainer(replyDiv, reply);
+        createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
+      }
     }
 
     // create new container for logged in user to add new comment
@@ -257,3 +257,27 @@ fetch("./data.json")
       createDeleteAndEditButtons(postedNewCommentContainer);
     });
   });
+
+const fruits = [
+  {
+    name: "apple",
+    color: "red",
+    weight: "40.32 grams",
+    breed: "fuji",
+    species: [
+      {
+        name: "fuji",
+        discoveredBy: "Daniel Fuji",
+      },
+      {
+        name: "granny smith",
+        discoveredBy: "Daniel Fuji's Grandma, Ms. Smith",
+      },
+    ],
+  },
+  {
+    name: "banana",
+    color: "yellow",
+    weight: "90.24 grams",
+  },
+];
