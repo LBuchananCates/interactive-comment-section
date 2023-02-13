@@ -217,6 +217,7 @@ fetch("./data.json")
       const commentDiv = createCommentDiv();
       createAvatar(commentDiv, comment.user.image.png);
       createUsername(commentDiv, comment.user.username);
+
       createPostDate(commentDiv, comment.createdAt);
       createComment(commentDiv, comment.content);
       createVotesContainer(commentDiv, comment);
@@ -229,15 +230,12 @@ fetch("./data.json")
 
         // if currentUser posts a reply, youBadge displays
         const loggedInUser = currentUser.username;
-        if (loggedInUser.textContent === reply.user.username) {
-          console.log("passed if condition");
+        if (loggedInUser === reply.user.username) {
           const youBadge = document.querySelector(".you-badge");
           createYouBadge(replyDiv);
-          loggedInUser.insertAdjacentHTML("afterbegin", youBadge);
+          replyDiv.insertAdjacentHTML("afterbegin", youBadge);
         }
-        console.log(loggedInUser.textContent);
-        console.log(currentUser.username);
-        // createYouBadge(replyDiv);
+
         createPostDate(replyDiv, reply.createdAt);
         createMention(replyDiv, reply.replyingTo);
         createReply(replyDiv, reply.content);
