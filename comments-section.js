@@ -34,7 +34,7 @@ function createPostDate(container, createdAt) {
 }
 
 function createMention(container, replyingTo) {
-  const mentionUsername = document.createElement("div");
+  const mentionUsername = document.createElement("span");
   mentionUsername.textContent = replyingTo;
   container.append(mentionUsername);
   mentionUsername.className = "mention-username";
@@ -200,6 +200,13 @@ function createDeleteAndEditButtons(container) {
   });
 }
 
+function createYouBadge(container) {
+  const youBadge = document.createElement("span");
+  container.append(youBadge);
+  youBadge.textContent = "you";
+  youBadge.className = "you-badge";
+}
+
 fetch("./data.json")
   .then((response) => response.json())
   .then((json) => {
@@ -219,6 +226,18 @@ fetch("./data.json")
         const replyDiv = createReplyDiv();
         createAvatar(replyDiv, reply.user.image.png);
         createUsername(replyDiv, reply.user.username);
+
+        // if currentUser posts a reply, youBadge displays
+        const loggedInUser = currentUser.username;
+        if (loggedInUser.textContent === reply.user.username) {
+          console.log("passed if condition");
+          const youBadge = document.querySelector(".you-badge");
+          createYouBadge(replyDiv);
+          loggedInUser.insertAdjacentHTML("afterbegin", youBadge);
+        }
+        console.log(loggedInUser.textContent);
+        console.log(currentUser.username);
+        // createYouBadge(replyDiv);
         createPostDate(replyDiv, reply.createdAt);
         createMention(replyDiv, reply.replyingTo);
         createReply(replyDiv, reply.content);
@@ -226,24 +245,15 @@ fetch("./data.json")
         createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
       }
     }
-    // create YOU badge
-    if (currentUserReplies) {
-      const youBadge = document.createElement("span");
-      youBadge.textContent = "YOU";
-      append(youBadge);
-      youBadge.className = "you-badge";
-    }
 
-    // create new container for logged in user to add new comment
+    // "Add new comment...." DONE (fix the votes & add youBadge)
     const newCommentContainer = createNewCommentContainer();
     createAvatar(newCommentContainer, currentUser.image.png);
-
     const newCommentInput = document.createElement("input");
     newCommentContainer.append(newCommentInput);
     newCommentInput.className = "new-comment-input";
     document.getElementsByClassName("new-comment-input")[0].placeholder =
       "Add new comment...";
-
     const newCommentSendButton = document.createElement("button");
     newCommentSendButton.textContent = "Send";
     newCommentContainer.append(newCommentSendButton);
