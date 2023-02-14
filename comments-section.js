@@ -52,16 +52,19 @@ function createVotesContainer(container, jsonComment) {
   const votesDiv = document.createElement("div");
   container.append(votesDiv);
   votesDiv.className = "votes";
+
   // 1. insert plus votes button WORKS
   const plusVotes = document.createElement("button");
   plusVotes.textContent = "+";
   votesDiv.append(plusVotes);
   plusVotes.className = "plus";
+
   // 2. current votes default WORKS
   const currentVotes = document.createElement("span");
   currentVotes.textContent = jsonComment.score;
   votesDiv.append(currentVotes);
   currentVotes.className = "current-votes";
+
   // 3. insert minus votes button
   const minusVotes = document.createElement("button");
   minusVotes.textContent = "-";
@@ -78,7 +81,7 @@ function createVotesContainer(container, jsonComment) {
     currentScore -= 1;
     currentVotes.textContent = currentScore;
   });
-}
+} // fix this
 
 function createInput(container) {
   const input = document.createElement("input");
@@ -156,7 +159,12 @@ function createPostedCommentReplyContainer() {
 
 function createPostedNewCommentContainer() {
   const postedNewCommentContainer = document.createElement("div");
-  document.body.append(postedNewCommentContainer);
+  // put new comment above container
+  const newCommentContainer = document.querySelector(".new-comment-container");
+  newCommentContainer.insertAdjacentElement(
+    "beforebegin",
+    postedNewCommentContainer
+  );
   postedNewCommentContainer.className = "posted-new-comment-container";
   return postedNewCommentContainer;
 }
@@ -178,7 +186,6 @@ function createDeleteAndEditButtons(container) {
 
   deleteButton.addEventListener("click", function () {
     container.remove(); // this works!
-    // newCommentContainer should show back up
   });
 
   const editButtonIcon = document.createElement("img");
@@ -195,7 +202,7 @@ function createDeleteAndEditButtons(container) {
   editButton.addEventListener("click", function () {
     const postedNewCommentContainer = document.querySelector(
       ".posted-new-comment-container"
-    ); // find the correct method for editing
+    );
     postedNewCommentContainer.style.display = none; //when i click edit, it responds
   });
 }
@@ -217,7 +224,6 @@ fetch("./data.json")
       const commentDiv = createCommentDiv();
       createAvatar(commentDiv, comment.user.image.png);
       createUsername(commentDiv, comment.user.username);
-
       createPostDate(commentDiv, comment.createdAt);
       createComment(commentDiv, comment.content);
       createVotesContainer(commentDiv, comment);
@@ -227,7 +233,6 @@ fetch("./data.json")
         const replyDiv = createReplyDiv();
         createAvatar(replyDiv, reply.user.image.png);
         createUsername(replyDiv, reply.user.username);
-
         // if currentUser posts a reply, youBadge displays
         const loggedInUser = currentUser.username;
         if (loggedInUser === reply.user.username) {
@@ -235,7 +240,6 @@ fetch("./data.json")
           createYouBadge(replyDiv);
           replyDiv.insertAdjacentHTML("afterbegin", youBadge);
         }
-
         createPostDate(replyDiv, reply.createdAt);
         createMention(replyDiv, reply.replyingTo);
         createReply(replyDiv, reply.content);
@@ -244,27 +248,47 @@ fetch("./data.json")
       }
     }
 
-    // "Add new comment...." DONE (fix the votes & add youBadge)
+    // "Add new comment...." DONE
     const newCommentContainer = createNewCommentContainer();
     createAvatar(newCommentContainer, currentUser.image.png);
+
+    // Add new comment: input, placeholder text DONE
     const newCommentInput = document.createElement("input");
     newCommentContainer.append(newCommentInput);
     newCommentInput.className = "new-comment-input";
     document.getElementsByClassName("new-comment-input")[0].placeholder =
       "Add new comment...";
+
+    // Add new comment: send button DONE
     const newCommentSendButton = document.createElement("button");
     newCommentSendButton.textContent = "Send";
     newCommentContainer.append(newCommentSendButton);
     newCommentSendButton.className = "new-comment-send-button";
+
+    // Add new comment: send button event listener
     newCommentSendButton.addEventListener("click", function () {
-      newCommentContainer.remove();
-      // const replyDiv = document.querySelector(".reply-div");
-      // replyDiv.insertBefore(newCommentContainer, replyDiv);
       const postedNewCommentContainer = createPostedNewCommentContainer();
+      // append avatar
       createAvatar(postedNewCommentContainer, currentUser.image.png);
+
+      // append username
       createUsername(postedNewCommentContainer, currentUser.username);
+
+      // newCommentContainer above new comment container
+
+      // remove new comment container: LEAVE POSITIONED HERE
+      // newCommentContainer.remove();
+
+      // if currentUser posts a reply, youBadge displays
+      const loggedInUser = currentUser.username;
+      if (loggedInUser === currentUser.username) {
+        // fix this above
+        const youBadge = document.querySelector(".you-badge");
+        createYouBadge(postedNewCommentContainer);
+        postedNewCommentContainer.insertAdjacentHTML("afterbegin", youBadge);
+      }
       createComment(postedNewCommentContainer, newCommentInput.value);
-      createVotesContainer(postedNewCommentContainer, "1"); // let votes = 0
+      createVotesContainer(postedNewCommentContainer, "1"); // let votes = 1
       createDeleteAndEditButtons(postedNewCommentContainer);
     });
   });
