@@ -81,7 +81,43 @@ function createVotesContainer(container, jsonComment) {
     currentScore -= 1;
     currentVotes.textContent = currentScore;
   });
-} // fix this
+}
+
+function createNewVotesContainer(container) {
+  // insert votes-div: upvotes, current votes, downvotes
+  const votesDiv = document.createElement("div");
+  container.append(votesDiv);
+  votesDiv.className = "votes";
+
+  // 1. insert plus votes button WORKS
+  const plusVotes = document.createElement("button");
+  plusVotes.textContent = "+";
+  votesDiv.append(plusVotes);
+  plusVotes.className = "plus";
+
+  // 2. current votes default WORKS
+  const currentVotes = document.createElement("span");
+  currentVotes.textContent = "1";
+  votesDiv.append(currentVotes);
+  currentVotes.className = "current-votes";
+
+  // 3. insert minus votes button
+  const minusVotes = document.createElement("button");
+  minusVotes.textContent = "-";
+  votesDiv.append(minusVotes);
+  minusVotes.className = "minus";
+
+  // event listener: UPVOTES & DOWNVOTES
+  let currentScore = 1; // YES THIS WORKS
+  plusVotes.addEventListener("click", function () {
+    currentScore += 1;
+    currentVotes.textContent = currentScore;
+  });
+  minusVotes.addEventListener("click", function () {
+    currentScore -= 1;
+    currentVotes.textContent = currentScore;
+  });
+} // THIS WORKS
 
 function createInput(container) {
   const input = document.createElement("input");
@@ -159,15 +195,15 @@ function createPostedCommentReplyContainer() {
 
 function createPostedNewCommentContainer() {
   const postedNewCommentContainer = document.createElement("div");
-  // put new comment above container
   const newCommentContainer = document.querySelector(".new-comment-container");
+  // put new comment above container
   newCommentContainer.insertAdjacentElement(
     "beforebegin",
     postedNewCommentContainer
   );
   postedNewCommentContainer.className = "posted-new-comment-container";
   return postedNewCommentContainer;
-}
+} //DONE
 
 function createDeleteAndEditButtons(container) {
   const deleteAndEditButtonContainer = document.createElement("div");
@@ -288,7 +324,7 @@ fetch("./data.json")
         postedNewCommentContainer.insertAdjacentHTML("afterbegin", youBadge);
       }
       createComment(postedNewCommentContainer, newCommentInput.value);
-      createVotesContainer(postedNewCommentContainer, "1"); // let votes = 1
+      createNewVotesContainer(postedNewCommentContainer); // let votes = 1
       createDeleteAndEditButtons(postedNewCommentContainer);
     });
   });
