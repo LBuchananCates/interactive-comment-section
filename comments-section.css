@@ -180,6 +180,23 @@ body {
   cursor: pointer;
 }
 
+.delete-modal-div {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  margin: 4px;
+}
+
+.delete-modal-header {
+  font-size: medium;
+}
+
+.delete-modal-text {
+  color: hsl(211, 10%, 45%);
+  padding: 30px;
+}
+
 .posted-comment-reply-container {
   background-color: white;
   border-radius: 6px;
