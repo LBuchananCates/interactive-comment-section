@@ -126,6 +126,7 @@ function createInput(container) {
 }
 
 function createCommentReplyButtonContainer(container, userImg) {
+  // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
   replyButtonContainer.className = "reply-button-container";
@@ -140,6 +141,7 @@ function createCommentReplyButtonContainer(container, userImg) {
   replyButtonContainer.append(replyButton);
   replyButton.className = "main-comment-reply-button";
 
+  // reply button event listener
   replyButton.addEventListener("click", function () {
     const CRD = document.querySelector(".comment-reply-div");
     if (!CRD) {
@@ -157,19 +159,32 @@ function createCommentReplyButtonContainer(container, userImg) {
       inputReplyButton.className = "input-reply-button";
 
       inputReplyButton.addEventListener("click", function () {
-        commentsReplyDiv.remove(); //this works
         const postedCommentReplyContainer = document.querySelector(
           ".posted-comment-reply-container"
         ); //this works
-        createPostedCommentReplyContainer(); //this works
+        commentsReplyDiv.remove(); //this works
+
+        const commentDiv = document.querySelector(".comment-div");
+        createPostedCommentReplyContainer(commentDiv); //this works, but only on first comment-div
+
+        const currentUser = json.currentUser;
         createAvatar(postedCommentReplyContainer, currentUser.image.png); // use json file info
         createUsername(postedCommentReplyContainer, currentUser.username); // use json file info
+
         const input = document.querySelector(".input");
-        createComment(postedCommentReplyContainer, input.value);
-        createVotesContainer(postedCommentReplyContainer, "0");
+        createComment(postedCommentReplyContainer, input.value); // error in console
+
+        createNewVotesContainer(postedCommentReplyContainer, "0");
       });
     }
   });
+}
+
+function createPostedCommentReplyContainer(container) {
+  const postedCommentReplyContainer = document.createElement("div");
+  container.append(postedCommentReplyContainer);
+  postedCommentReplyContainer.className = "posted-comment-reply-container";
+  return postedCommentReplyContainer;
 }
 
 function createReply(container, reply) {
@@ -184,13 +199,6 @@ function createNewCommentContainer() {
   document.body.append(newCommentContainer);
   newCommentContainer.className = "new-comment-container";
   return newCommentContainer;
-}
-
-function createPostedCommentReplyContainer() {
-  const postedCommentReplyContainer = document.createElement("div");
-  document.body.append(postedCommentReplyContainer);
-  postedCommentReplyContainer.className = "posted-comment-reply-container";
-  return postedCommentReplyContainer;
 }
 
 function createPostedNewCommentContainer() {
@@ -221,6 +229,31 @@ function createDeleteAndEditButtons(container) {
   deleteButton.className = "delete-button";
 
   deleteButton.addEventListener("click", function () {
+    const deleteModalDiv = document.createElement("div");
+    document.body.append(deleteModalDiv);
+    deleteModalDiv.className = "delete-modal-div";
+
+    const deleteModalHeader = document.createElement("h1");
+    deleteModalHeader.textContent = "Delete comment";
+    deleteModalDiv.append(deleteModalHeader);
+    deleteModalHeader.className = "delete-modal";
+
+    const deleteModalText = document.createElement("p");
+    deleteModalText.textContent =
+      "Are you sure you want to delete this comment? This will remove the comment and can't be undone.";
+    deleteModalDiv.append(deleteModalText);
+    deleteModalText.className = "delete-modal-text";
+
+    const deleteModalCancelButton = document.createElement("button");
+    deleteModalCancelButton.textContent = "No, cancel";
+    deleteModalDiv.append(deleteModalCancelButton);
+    deleteModalCancelButton.className = "delete-modal-cancel-button";
+
+    const deleteModalDeleteButton = document.createElement("button");
+    deleteModalDeleteButton.textContent = "Yes, delete";
+    deleteModalDiv.append(deleteModalDeleteButton);
+    deleteModalDeleteButton.className = "delete-modal-delete-button";
+
     container.remove(); // this works!
   });
 
@@ -233,13 +266,10 @@ function createDeleteAndEditButtons(container) {
   deleteAndEditButtonContainer.append(editButton);
   editButton.textContent = "edit";
   editButton.className = "edit-button";
-  editButton.setAttribute("onclick", "alert('you have clicked edit button')");
 
   editButton.addEventListener("click", function () {
-    const postedNewCommentContainer = document.querySelector(
-      ".posted-new-comment-container"
-    );
-    postedNewCommentContainer.style.display = none; //when i click edit, it responds
+    const postedComment = document.querySelector(".posted-comment");
+    postedComment.value;
   });
 }
 
@@ -301,15 +331,13 @@ fetch("./data.json")
     newCommentContainer.append(newCommentSendButton);
     newCommentSendButton.className = "new-comment-send-button";
 
-    // Add new comment: send button event listener
+    // Add new comment: send button event listener DONE
     newCommentSendButton.addEventListener("click", function () {
       const postedNewCommentContainer = createPostedNewCommentContainer();
       // append avatar
       createAvatar(postedNewCommentContainer, currentUser.image.png);
-
       // append username
       createUsername(postedNewCommentContainer, currentUser.username);
-
       // if currentUser posts a reply, youBadge displays
       const loggedInUser = currentUser.username;
       if (loggedInUser === currentUser.username) {
@@ -321,7 +349,7 @@ fetch("./data.json")
       createComment(postedNewCommentContainer, newCommentInput.value);
       createNewVotesContainer(postedNewCommentContainer); // let votes = 1
       createDeleteAndEditButtons(postedNewCommentContainer);
-
+      // clears input value
       if (newCommentInput.value != "") {
         newCommentInput.value = "";
       }
