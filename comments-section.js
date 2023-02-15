@@ -310,11 +310,6 @@ fetch("./data.json")
       // append username
       createUsername(postedNewCommentContainer, currentUser.username);
 
-      // newCommentContainer above new comment container
-
-      // remove new comment container: LEAVE POSITIONED HERE
-      // newCommentContainer.remove();
-
       // if currentUser posts a reply, youBadge displays
       const loggedInUser = currentUser.username;
       if (loggedInUser === currentUser.username) {
@@ -326,29 +321,9 @@ fetch("./data.json")
       createComment(postedNewCommentContainer, newCommentInput.value);
       createNewVotesContainer(postedNewCommentContainer); // let votes = 1
       createDeleteAndEditButtons(postedNewCommentContainer);
+
+      if (newCommentInput.value != "") {
+        newCommentInput.value = "";
+      }
     });
   });
-
-const fruits = [
-  {
-    name: "apple",
-    color: "red",
-    weight: "40.32 grams",
-    breed: "fuji",
-    species: [
-      {
-        name: "fuji",
-        discoveredBy: "Daniel Fuji",
-      },
-      {
-        name: "granny smith",
-        discoveredBy: "Daniel Fuji's Grandma, Ms. Smith",
-      },
-    ],
-  },
-  {
-    name: "banana",
-    color: "yellow",
-    weight: "90.24 grams",
-  },
-];
