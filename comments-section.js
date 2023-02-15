@@ -236,7 +236,7 @@ function createDeleteAndEditButtons(container) {
     const deleteModalHeader = document.createElement("h1");
     deleteModalHeader.textContent = "Delete comment";
     deleteModalDiv.append(deleteModalHeader);
-    deleteModalHeader.className = "delete-modal";
+    deleteModalHeader.className = "delete-modal-header";
 
     const deleteModalText = document.createElement("p");
     deleteModalText.textContent =
@@ -254,7 +254,10 @@ function createDeleteAndEditButtons(container) {
     deleteModalDiv.append(deleteModalDeleteButton);
     deleteModalDeleteButton.className = "delete-modal-delete-button";
 
-    container.remove(); // this works!
+    deleteModalDeleteButton.addEventListener("click", function () {
+      container.remove(); // this works!
+      deleteModalDiv.remove();
+    });
   });
 
   const editButtonIcon = document.createElement("img");
