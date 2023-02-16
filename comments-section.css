@@ -142,6 +142,8 @@ body {
   border-width: 1px;
   width: 100%; /* not sure if i should use this */
   margin: 0px 10px;
+  padding: 7px 15px 0px 15px;
+  font-family: "Rubik", sans-serif;
 }
 
 .new-comment-input:focus {
@@ -180,21 +182,60 @@ body {
   cursor: pointer;
 }
 
+.delete-modal-overlay {
+}
+
 .delete-modal-div {
   display: flex;
   flex-direction: column;
   background-color: white;
-  border-radius: 5px;
-  margin: 4px;
+  border-radius: 9px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 250px;
+  margin-top: -150px;
+  margin-left: -200px;
 }
 
 .delete-modal-header {
-  font-size: medium;
+  font-weight: 400;
+  padding: 0px 30px;
 }
 
 .delete-modal-text {
   color: hsl(211, 10%, 45%);
-  padding: 30px;
+  padding: 15px 35px;
+  margin: 0;
+}
+
+.delete-modal-buttons-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.delete-modal-cancel-button {
+  background-color: gray;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  margin: 0px 5px;
+  text-transform: uppercase;
+  padding: 15px 25px;
+  cursor: pointer;
+}
+
+.delete-modal-delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  margin: 0px 5px;
+  text-transform: uppercase;
+  padding: 15px 25px;
+  cursor: pointer;
 }
 
 .posted-comment-reply-container {
