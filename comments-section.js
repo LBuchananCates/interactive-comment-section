@@ -120,12 +120,13 @@ function createNewVotesContainer(container) {
 } // THIS WORKS
 
 function createInput(container) {
-  const input = document.createElement("input");
+  const input = document.createElement("textarea");
   container.append(input);
   input.className = "input";
 }
 
-function createCommentReplyButtonContainer(container, userImg) {
+function createCommentReplyButtonContainer(container, currentUser) {
+  console.log(container);
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
@@ -149,7 +150,7 @@ function createCommentReplyButtonContainer(container, userImg) {
       container.append(commentsReplyDiv);
       commentsReplyDiv.className = "comment-reply-div";
       // create avatar
-      createAvatar(commentsReplyDiv, userImg);
+      createAvatar(commentsReplyDiv, currentUser.image.png);
       // create input
       createInput(commentsReplyDiv);
       // create inputReplyButton
@@ -159,22 +160,18 @@ function createCommentReplyButtonContainer(container, userImg) {
       inputReplyButton.className = "input-reply-button";
 
       inputReplyButton.addEventListener("click", function () {
-        const postedCommentReplyContainer = document.querySelector(
-          ".posted-comment-reply-container"
-        ); //this works
-        commentsReplyDiv.remove(); //this works
+        const postedCommentReplyContainer =
+          createPostedCommentReplyContainer(container);
 
-        const commentDiv = document.querySelector(".comment-div");
-        createPostedCommentReplyContainer(commentDiv); //this works, but only on first comment-div
-
-        const currentUser = json.currentUser;
         createAvatar(postedCommentReplyContainer, currentUser.image.png); // use json file info
         createUsername(postedCommentReplyContainer, currentUser.username); // use json file info
 
         const input = document.querySelector(".input");
-        createComment(postedCommentReplyContainer, input.value); // error in console
+        createComment(postedCommentReplyContainer, input.value);
 
         createNewVotesContainer(postedCommentReplyContainer, "0");
+        createDeleteAndEditButtons(postedCommentReplyContainer);
+        commentsReplyDiv.remove();
       });
     }
   });
@@ -229,8 +226,12 @@ function createDeleteAndEditButtons(container) {
   deleteButton.className = "delete-button";
 
   deleteButton.addEventListener("click", function () {
+    // const deleteModalOverlay = document.createElement("div");
+    // document.body.append(deleteModalOverlay); // is this right???
+    // deleteModalOverlay.className = "delete-modal-overlay";
+
     const deleteModalDiv = document.createElement("div");
-    document.body.append(deleteModalDiv);
+    document.body.append(deleteModalDiv); // is this right???
     deleteModalDiv.className = "delete-modal-div";
 
     const deleteModalHeader = document.createElement("h1");
@@ -244,19 +245,28 @@ function createDeleteAndEditButtons(container) {
     deleteModalDiv.append(deleteModalText);
     deleteModalText.className = "delete-modal-text";
 
+    const deleteModalButtonsDiv = document.createElement("div");
+    deleteModalDiv.append(deleteModalButtonsDiv);
+    deleteModalButtonsDiv.className = "delete-modal-buttons-div";
+
     const deleteModalCancelButton = document.createElement("button");
     deleteModalCancelButton.textContent = "No, cancel";
-    deleteModalDiv.append(deleteModalCancelButton);
+    deleteModalButtonsDiv.append(deleteModalCancelButton);
     deleteModalCancelButton.className = "delete-modal-cancel-button";
+
+    deleteModalCancelButton.addEventListener("click", function () {
+      deleteModalDiv.remove(); // removes delete modal div: works!!!
+      // deleteModalOverlay.remove();
+    });
 
     const deleteModalDeleteButton = document.createElement("button");
     deleteModalDeleteButton.textContent = "Yes, delete";
-    deleteModalDiv.append(deleteModalDeleteButton);
+    deleteModalButtonsDiv.append(deleteModalDeleteButton);
     deleteModalDeleteButton.className = "delete-modal-delete-button";
 
     deleteModalDeleteButton.addEventListener("click", function () {
-      container.remove(); // this works!
-      deleteModalDiv.remove();
+      container.remove(); // removes comment when click delete
+      deleteModalDiv.remove(); // removes delete modal when click delete
     });
   });
 
@@ -296,7 +306,7 @@ fetch("./data.json")
       createPostDate(commentDiv, comment.createdAt);
       createComment(commentDiv, comment.content);
       createVotesContainer(commentDiv, comment);
-      createCommentReplyButtonContainer(commentDiv, currentUser.image.png);
+      createCommentReplyButtonContainer(commentDiv, currentUser);
 
       for (const reply of comment.replies) {
         const replyDiv = createReplyDiv();
@@ -313,7 +323,7 @@ fetch("./data.json")
         createMention(replyDiv, reply.replyingTo);
         createReply(replyDiv, reply.content);
         createVotesContainer(replyDiv, reply);
-        createCommentReplyButtonContainer(replyDiv, currentUser.image.png);
+        createCommentReplyButtonContainer(replyDiv, currentUser);
       }
     }
 
@@ -322,7 +332,7 @@ fetch("./data.json")
     createAvatar(newCommentContainer, currentUser.image.png);
 
     // Add new comment: input, placeholder text DONE
-    const newCommentInput = document.createElement("input");
+    const newCommentInput = document.createElement("textarea");
     newCommentContainer.append(newCommentInput);
     newCommentInput.className = "new-comment-input";
     document.getElementsByClassName("new-comment-input")[0].placeholder =
