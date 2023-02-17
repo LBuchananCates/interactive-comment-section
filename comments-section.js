@@ -38,7 +38,7 @@ function createMention(container, replyingTo) {
   mentionUsername.textContent = replyingTo;
   container.append(mentionUsername);
   mentionUsername.className = "mention-username";
-} // work on this after
+} // FIX
 
 function createComment(container, comment) {
   const postedComment = document.createElement("p");
@@ -117,7 +117,7 @@ function createNewVotesContainer(container) {
     currentScore -= 1;
     currentVotes.textContent = currentScore;
   });
-} // THIS WORKS
+} // DONE
 
 function createInput(container) {
   const input = document.createElement("textarea");
@@ -126,7 +126,6 @@ function createInput(container) {
 }
 
 function createCommentReplyButtonContainer(container, currentUser) {
-  console.log(container);
   // reply container: arrow icon, reply button
   const replyButtonContainer = document.createElement("div");
   container.append(replyButtonContainer);
@@ -165,6 +164,7 @@ function createCommentReplyButtonContainer(container, currentUser) {
 
         createAvatar(postedCommentReplyContainer, currentUser.image.png); // use json file info
         createUsername(postedCommentReplyContainer, currentUser.username); // use json file info
+        createYouBadge(postedCommentReplyContainer);
 
         const input = document.querySelector(".input");
         createComment(postedCommentReplyContainer, input.value);
@@ -175,7 +175,7 @@ function createCommentReplyButtonContainer(container, currentUser) {
       });
     }
   });
-}
+} // pretty much done
 
 function createPostedCommentReplyContainer(container) {
   const postedCommentReplyContainer = document.createElement("div");
@@ -226,12 +226,12 @@ function createDeleteAndEditButtons(container) {
   deleteButton.className = "delete-button";
 
   deleteButton.addEventListener("click", function () {
-    // const deleteModalOverlay = document.createElement("div");
-    // document.body.append(deleteModalOverlay); // is this right???
-    // deleteModalOverlay.className = "delete-modal-overlay";
+    const deleteModalOverlay = document.createElement("div");
+    container.append(deleteModalOverlay); // is this right???
+    deleteModalOverlay.className = "delete-modal-overlay";
 
     const deleteModalDiv = document.createElement("div");
-    document.body.append(deleteModalDiv); // is this right???
+    deleteModalOverlay.append(deleteModalDiv); // is this right???
     deleteModalDiv.className = "delete-modal-div";
 
     const deleteModalHeader = document.createElement("h1");
@@ -256,7 +256,7 @@ function createDeleteAndEditButtons(container) {
 
     deleteModalCancelButton.addEventListener("click", function () {
       deleteModalDiv.remove(); // removes delete modal div: works!!!
-      // deleteModalOverlay.remove();
+      deleteModalOverlay.remove(); // removes modal overlay: works!!!
     });
 
     const deleteModalDeleteButton = document.createElement("button");
@@ -280,11 +280,8 @@ function createDeleteAndEditButtons(container) {
   editButton.textContent = "edit";
   editButton.className = "edit-button";
 
-  editButton.addEventListener("click", function () {
-    const postedComment = document.querySelector(".posted-comment");
-    postedComment.value;
-  });
-}
+  editButton.addEventListener("click", function () {});
+} // fix
 
 function createYouBadge(container) {
   const youBadge = document.createElement("span");
