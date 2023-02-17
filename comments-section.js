@@ -34,7 +34,7 @@ function createPostDate(container, createdAt) {
 }
 
 function createMention(container, replyingTo) {
-  const mentionUsername = document.createElement("span");
+  const mentionUsername = document.createElement("div");
   mentionUsername.textContent = `@${replyingTo}`;
   container.append(mentionUsername);
   mentionUsername.className = "mention-username";
@@ -227,11 +227,11 @@ function createDeleteAndEditButtons(container) {
 
   deleteButton.addEventListener("click", function () {
     const deleteModalOverlay = document.createElement("div");
-    container.append(deleteModalOverlay);
+    document.body.append(deleteModalOverlay);
     deleteModalOverlay.className = "delete-modal-overlay";
 
     const deleteModalDiv = document.createElement("div");
-    deleteModalOverlay.append(deleteModalDiv);
+    document.body.append(deleteModalDiv);
     deleteModalDiv.className = "delete-modal-div";
 
     const deleteModalHeader = document.createElement("h1");
@@ -267,6 +267,7 @@ function createDeleteAndEditButtons(container) {
     deleteModalDeleteButton.addEventListener("click", function () {
       container.remove(); // removes comment when click delete
       deleteModalDiv.remove(); // removes delete modal when click delete
+      deleteModalOverlay.remove(); // removes delete modal overlay when click delete
     });
   }); // DONE //
 
@@ -280,7 +281,37 @@ function createDeleteAndEditButtons(container) {
   editButton.textContent = "edit";
   editButton.className = "edit-button";
 
-  editButton.addEventListener("click", function () {});
+  editButton.addEventListener("click", function () {
+    // remove the posted comment inside this reply (hint: container is our reply)
+    const postedComment = container.querySelector(".posted-comment");
+
+    // add an input where the posted comment was (after you badge)
+    const input = document.createElement("textarea");
+    input.value = postedComment.innerText;
+    input.className = "input input-edit";
+    container.replaceChild(input, postedComment);
+
+    // remove votes
+    const votes = container.querySelector(".votes");
+    votes.remove();
+
+    // add an update button
+    const updateBtn = document.createElement("button");
+    updateBtn.className = "input-reply-button";
+    updateBtn.textContent = "Update";
+    input.insertAdjacentElement("afterend", updateBtn);
+
+    // add update btn event listener
+    updateBtn.addEventListener("click", function () {
+      // make posted comment again, give new value, append it back inside container
+      const postedComment = createComment(container, input.value);
+
+      // remove input
+      input.remove();
+      // remove update button
+      updateBtn.remove();
+    });
+  });
 } // fix
 
 function createYouBadge(container) {
@@ -348,6 +379,7 @@ fetch("./data.json")
       createAvatar(postedNewCommentContainer, currentUser.image.png);
       // append username
       createUsername(postedNewCommentContainer, currentUser.username);
+
       // if currentUser posts a reply, youBadge displays
       const loggedInUser = currentUser.username;
       if (loggedInUser === currentUser.username) {
@@ -357,8 +389,9 @@ fetch("./data.json")
         postedNewCommentContainer.insertAdjacentHTML("afterbegin", youBadge);
       }
       createComment(postedNewCommentContainer, newCommentInput.value);
-      createNewVotesContainer(postedNewCommentContainer); // let votes = 1
+      createNewVotesContainer(postedNewCommentContainer);
       createDeleteAndEditButtons(postedNewCommentContainer);
+
       // clears input value
       if (newCommentInput.value != "") {
         newCommentInput.value = "";
