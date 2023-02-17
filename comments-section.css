@@ -98,10 +98,14 @@ body {
 
 .input {
   border: solid hsl(211, 10%, 45%);
+  color: black;
   border-radius: 8px;
   border-width: 1px;
   margin: 0px 10px;
   width: 100%;
+  font-family: "Rubik", sans-serif;
+  /* padding: 3px 10px; */
+  padding: 7px 10px 0px 10px;
 }
 
 .input:focus {
@@ -142,7 +146,7 @@ body {
   border-width: 1px;
   width: 100%; /* not sure if i should use this */
   margin: 0px 10px;
-  padding: 7px 15px 0px 15px;
+  padding: 7px 10px 0px 10px;
   font-family: "Rubik", sans-serif;
 }
 
@@ -183,6 +187,15 @@ body {
 }
 
 .delete-modal-overlay {
+  background-color: #474e5d;
+  display: block;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  opacity: 0.5;
+  left: 0;
+  top: 0;
 }
 
 .delete-modal-div {
@@ -193,7 +206,7 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 400px;
+  width: 50%;
   height: 250px;
   margin-top: -150px;
   margin-left: -200px;
@@ -202,12 +215,14 @@ body {
 .delete-modal-header {
   font-weight: 400;
   padding: 0px 30px;
+  color: black;
 }
 
 .delete-modal-text {
   color: hsl(211, 10%, 45%);
   padding: 15px 35px;
   margin: 0;
+  line-height: 24px;
 }
 
 .delete-modal-buttons-div {
