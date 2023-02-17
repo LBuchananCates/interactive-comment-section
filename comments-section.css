@@ -104,7 +104,6 @@ body {
   margin: 0px 10px;
   width: 100%;
   font-family: "Rubik", sans-serif;
-  /* padding: 3px 10px; */
   padding: 7px 10px 0px 10px;
 }
 
@@ -210,6 +209,7 @@ body {
   height: 250px;
   margin-top: -150px;
   margin-left: -200px;
+  z-index: 1;
 }
 
 .delete-modal-header {
