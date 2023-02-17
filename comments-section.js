@@ -35,10 +35,10 @@ function createPostDate(container, createdAt) {
 
 function createMention(container, replyingTo) {
   const mentionUsername = document.createElement("span");
-  mentionUsername.textContent = replyingTo;
+  mentionUsername.textContent = `@${replyingTo}`;
   container.append(mentionUsername);
   mentionUsername.className = "mention-username";
-} // FIX
+} // DONE
 
 function createComment(container, comment) {
   const postedComment = document.createElement("p");
@@ -227,11 +227,11 @@ function createDeleteAndEditButtons(container) {
 
   deleteButton.addEventListener("click", function () {
     const deleteModalOverlay = document.createElement("div");
-    container.append(deleteModalOverlay); // is this right???
+    container.append(deleteModalOverlay);
     deleteModalOverlay.className = "delete-modal-overlay";
 
     const deleteModalDiv = document.createElement("div");
-    deleteModalOverlay.append(deleteModalDiv); // is this right???
+    deleteModalOverlay.append(deleteModalDiv);
     deleteModalDiv.className = "delete-modal-div";
 
     const deleteModalHeader = document.createElement("h1");
@@ -253,7 +253,7 @@ function createDeleteAndEditButtons(container) {
     deleteModalCancelButton.textContent = "No, cancel";
     deleteModalButtonsDiv.append(deleteModalCancelButton);
     deleteModalCancelButton.className = "delete-modal-cancel-button";
-
+    // Delete modal cancel button: works!!!
     deleteModalCancelButton.addEventListener("click", function () {
       deleteModalDiv.remove(); // removes delete modal div: works!!!
       deleteModalOverlay.remove(); // removes modal overlay: works!!!
@@ -263,12 +263,12 @@ function createDeleteAndEditButtons(container) {
     deleteModalDeleteButton.textContent = "Yes, delete";
     deleteModalButtonsDiv.append(deleteModalDeleteButton);
     deleteModalDeleteButton.className = "delete-modal-delete-button";
-
+    // Delete modal delete button: works!!!
     deleteModalDeleteButton.addEventListener("click", function () {
       container.remove(); // removes comment when click delete
       deleteModalDiv.remove(); // removes delete modal when click delete
     });
-  });
+  }); // DONE //
 
   const editButtonIcon = document.createElement("img");
   editButtonIcon.src = "./images/icon-edit.svg";
