@@ -101,10 +101,14 @@ body {
   color: black;
   border-radius: 8px;
   border-width: 1px;
-  margin: 0px 10px;
+  margin: 5px 10px;
   width: 100%;
   font-family: "Rubik", sans-serif;
   padding: 7px 10px 0px 10px;
+}
+
+.input-edit {
+  margin: 10px;
 }
 
 .input:focus {
